@@ -12,6 +12,6 @@ The game engine uses the following libraries:
 * Glew
 
 # Controls
-Mouse: Look around
-WASD: Move player
-Space: Jump
+* Mouse: Look around
+* WASD: Move player
+* Space: Jump
