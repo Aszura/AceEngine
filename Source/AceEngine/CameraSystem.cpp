@@ -92,6 +92,7 @@ void CameraSystem::update(float deltaTime)
 			// ---------
 			cameraComp.yaw += amount.x;
 			cameraComp.pitch += amount.y;
+			cameraComp.pitch = glm::clamp(cameraComp.pitch, -1.56f, 1.56f); //Limit up/down look
 
 			glm::mat4 rotMat = glm::yawPitchRoll(cameraComp.yaw, cameraComp.pitch, cameraComp.roll);
 			cameraComp.direction = glm::vec3(rotMat * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
