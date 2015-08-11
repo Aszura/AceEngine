@@ -3,12 +3,14 @@
 	<CameraComponent entityId="1" />
 	<CharacterControllerComponent entityId="1" />
 	<TransformComponent entityId="1" />
-	<TransformComponent entityId="2" positionX="0.25f" positionY="0.25f" positionZ="0.5f" />
-	<LightComponent entityId="2" intensity="2.0f" />
+	<TransformComponent entityId="2" positionX="-0.25f" positionY="-0.25f" positionZ="0.5f" />
+	<LightComponent entityId="2" intensity="4.0f" />
 	<MusicComponent entityId="3" isPlaying="1" filePath="../../Media/Audio/wind.ogg" />
 	<SkyboxComponent entityId="4" textures0="../../Media/Textures/Skybox/clouds1_east.bmp" textures1="../../Media/Textures/Skybox/clouds1_west.bmp" textures2="../../Media/Textures/Skybox/clouds1_up.bmp" textures3="../../Media/Textures/Skybox/clouds1_down.bmp" textures4="../../Media/Textures/Skybox/clouds1_north.bmp" textures5="../../Media/Textures/Skybox/clouds1_south.bmp" />
 	<TransformComponent entityId="5" positionX="-256.0f" positionY="-10.0f" positionZ="-256.0f" />
-	<TerrainComponent entityId="5" terrainScale="2.0f" heightTexture="../../Media/Textures/terrain1.png" materialShader="Terrain" materialAmbientX="0.25f" materialAmbientY="0.25f" materialAmbientZ="0.25f" materialAmbientW="0.0f" materialTexture="../../Media/Textures/grass_green_d.jpg" />
+	<TerrainComponent entityId="5" terrainScale="2.0f" heightTexture="../../Media/Textures/terrain1.png" materialShader="Terrain" materialTexture="../../Media/Textures/grass_green_d.jpg" />
+	<TransformComponent entityId="6" positionY="-8.5f" positionZ="3.0f" />
 </Components>
 <Models>
+	<Model entityId="6" scenePath="../../Media/Models/bouncingball1.dae" shader="DiffuseNormal" materialTexture="../../Media/Textures/stonetiles_003_diff.png" materialNormalTexture="../../Media/Textures/stonetiles_003_norm.png" />
 </Models>

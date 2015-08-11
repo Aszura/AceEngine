@@ -24,9 +24,10 @@ layout(std140) uniform LightBuffer
 };
 
 uniform sampler2D uColorTex;
+uniform sampler2D uNormalTex;
 
 in vec2 uv;
-in vec3 normal;
+in mat3 tbn;
 
 out vec4 fragColor;
 
@@ -34,6 +35,7 @@ const vec3 gamma = vec3(1.0/2.2);
 
 void main(void)
 {
+	vec3 normal = tbn * normalize(texture2D(uNormalTex, uv).xyz * 2.0 - 1.0);
 	vec4 texel = texture2D(uColorTex, uv).rgba * color;
 	float ndotl = clamp(dot(normal, lightPosition), 0.0, 1.0);
 

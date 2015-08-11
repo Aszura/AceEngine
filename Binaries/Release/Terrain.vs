@@ -30,5 +30,6 @@ void main(void)
 	normal = vNormal;
 	uv = vUv;
 	float height = texture(uHeightMap, uv).r * uMaxTerrainHeight;
-	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vPosition.x, height, vPosition.y, 1.0);
+	vec4 worldPos = modelMatrix * vec4(vPosition.x, height, vPosition.y, 1.0);
+	gl_Position = projectionMatrix * viewMatrix * worldPos;
 }

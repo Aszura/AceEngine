@@ -184,5 +184,11 @@
     <None Include="Skybox.ps">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="DiffuseNormal.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="DiffuseNormal.ps">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -22,4 +22,5 @@ struct Texture
 	unsigned int	id;
 	TextureType		type = TextureType::Texture2D;
 	bool			isLoaded = false;
+	bool			sRGB = true;
 };

@@ -175,10 +175,17 @@ void RenderSystem::loadTextures()
 			GLuint id;
 			glGenTextures(1, &id);
 
+			GLenum internalFormat = GL_SRGB_ALPHA;
+
+			if (!texture->sRGB)
+			{
+				internalFormat = GL_RGBA;
+			}
+
 			//Bind normal texture for storing image
 			glBindTexture(GL_TEXTURE_2D, id);
 			//Load texture from pixels
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->image.getPixelsPtr());
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->image.getPixelsPtr());
 			//Generate mipmaps
 			glGenerateMipmap(GL_TEXTURE_2D);
 			//Use trilinear interpolation for minification
@@ -508,6 +515,7 @@ void RenderSystem::update(float deltaTime, bool& running)
 			assert(lightTransform);
 
 			mLightBuffer.color = lightComp.color;
+			mLightBuffer.ambient = lightComp.ambient;
 			mLightBuffer.position = lightTransform->position;
 			mLightBuffer.intensity = lightComp.intensity;
 

@@ -6,7 +6,10 @@ in vec3 uv;
 
 out vec4 fragColor;
 
+const vec3 gamma = vec3(1.0/2.2);
+
 void main(void)
 {
-	fragColor = texture(uColorTex, uv).rgba;
+	vec4 texel = texture(uColorTex, uv).rgba;
+	fragColor = vec4(pow(texel.rgb, gamma), texel.a);
 }

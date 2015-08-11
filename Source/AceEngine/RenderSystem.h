@@ -42,6 +42,7 @@ private:
 	struct LightBuffer
 	{
 		glm::vec4	color;
+		glm::vec4	ambient;
 		glm::vec3	position;
 		float		intensity;
 	};

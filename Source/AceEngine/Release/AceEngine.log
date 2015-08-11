@@ -1,0 +1,52 @@
+﻿Build started 11.08.2015 20:55:28.
+     1>Project "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\AceEngine.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D GLM_FORCE_PURE /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt AudioSystem.cpp CameraSystem.cpp ComponentSerializer.cpp EntityWorld.cpp Game.cpp Main.cpp PhysicsSystem.cpp RenderSystem.cpp SceneImporter.cpp SceneLoader.cpp TerrainSystem.cpp
+         AudioSystem.cpp
+         CameraSystem.cpp
+         ComponentSerializer.cpp
+         EntityWorld.cpp
+         Game.cpp
+         Main.cpp
+         PhysicsSystem.cpp
+         RenderSystem.cpp
+         SceneImporter.cpp
+         SceneLoader.cpp
+         TerrainSystem.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\\..\Binaries\Release\AceEngine.exe" /INCREMENTAL:NO /NOLOGO assimp.lib glew32.lib OpenGL32.lib PhysX3CHECKED_x86.lib PhysX3CommonCHECKED_x86.lib PhysX3CookingCHECKED_x86.lib PhysX3CharacterKinematicCHECKED_x86.lib PhysX3ExtensionsCHECKED.lib "sfml-audio.lib" "sfml-graphics.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\\..\Binaries\Release\AceEngine.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\\..\Binaries\Release\AceEngine.lib" /MACHINE:X86 /SAFESEH Release\AudioSystem.obj
+         Release\CameraSystem.obj
+         Release\ComponentSerializer.obj
+         Release\EntityWorld.obj
+         Release\EventSystem.obj
+         Release\Game.obj
+         Release\InputSystem.obj
+         Release\Main.obj
+         Release\PhysicsSystem.obj
+         Release\RenderSystem.obj
+         Release\SceneImporter.obj
+         Release\SceneLoader.obj
+         Release\TerrainSystem.obj
+         Generating code
+         Finished generating code
+         AceEngine.vcxproj -> C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\\..\Binaries\Release\AceEngine.exe
+       PostBuildEvent:
+         XCOPY "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\"*.vs "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\" /D /K /Y
+         XCOPY "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\"*.ps "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\" /D /K /Y
+         XCOPY "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\"\..\Libraries\*.dll "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\" /D /K /Y
+         XCOPY "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\"\..\Libraries\Release\*.dll "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\" /D /K /Y
+         
+         :VCEnd
+         0 Datei(en) kopiert
+         C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\Diffuse.ps
+         C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\DiffuseNormal.ps
+         C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\Skybox.ps
+         C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\Terrain.ps
+         4 Datei(en) kopiert
+         0 Datei(en) kopiert
+         0 Datei(en) kopiert
+     1>Done Building Project "C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Source\AceEngine\AceEngine.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.78

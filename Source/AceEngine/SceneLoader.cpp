@@ -2,6 +2,9 @@
 #include "ComponentSerializer.h"
 #include "SceneImporter.h"
 #include "CustomTypes.h"
+#include "EntityWorld.h"
+#include "Texture.h"
+#include "ResourceLoader.h"
 
 #include <assert.h>
 #include <fstream>
@@ -74,6 +77,18 @@ bool SceneLoader::loadScene(const std::string& filePath)
 		strStream >> entityId;
 
 		sceneImporter.loadScene(entityId, data["scenePath"].c_str(), data["shader"]);
+
+		if (data.count("materialTexture") > 0)
+		{
+			MeshComponent* meshComp = mEntityWorld->getMeshWorld().getFirst(entityId);
+			meshComp->material->texture = mTextureLoader->load(data["materialTexture"]);
+		}
+
+		if (data.count("materialNormalTexture") > 0)
+		{
+			MeshComponent* meshComp = mEntityWorld->getMeshWorld().getFirst(entityId);
+			meshComp->material->normalTexture = mTextureLoader->load(data["materialNormalTexture"]);
+		}
 	}
 
 	return true;

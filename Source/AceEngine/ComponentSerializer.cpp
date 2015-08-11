@@ -158,6 +158,7 @@ void ComponentSerializer::deserialize(const std::string typeName, std::unordered
 		if (loadValue(members, "heightTexture", heightTexturePath))
 		{
 			terrainComp->heightTexture = mTextureLoader->load(heightTexturePath);
+			terrainComp->heightTexture->sRGB = false;
 		}
 
 		//Material
@@ -175,6 +176,7 @@ void ComponentSerializer::deserialize(const std::string typeName, std::unordered
 		if (loadValue(members, "normalTexture", normalTexturePath))
 		{
 			terrainComp->material->normalTexture = mTextureLoader->load(normalTexturePath);
+			terrainComp->material->normalTexture->sRGB = false;
 		}
 
 		std::string shaderPath;

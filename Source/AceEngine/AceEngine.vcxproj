@@ -161,6 +161,8 @@ XCOPY "$(SolutionDir)"\..\Libraries\Release\*.dll "$(TargetDir)" /D /K /Y
     <None Include="Diffuse.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="DiffuseNormal.ps" />
+    <None Include="DiffuseNormal.vs" />
     <None Include="Skybox.ps" />
     <None Include="Skybox.vs" />
     <None Include="Terrain.ps">
