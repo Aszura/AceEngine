@@ -1,0 +1,12 @@
+#version 330
+
+uniform samplerCube uColorTex;
+
+in vec3 uv;
+
+out vec4 fragColor;
+
+void main(void)
+{
+	fragColor = texture(uColorTex, uv).rgba;
+}

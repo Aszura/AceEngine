@@ -1,0 +1,38 @@
+#version 330
+
+layout(std140) uniform StaticBuffer
+{
+    mat4 projectionMatrix;
+    mat4 viewMatrix;
+};
+
+layout(std140) uniform DynamicBuffer
+{
+    mat4 modelMatrix;
+	vec4 color;
+	vec4 specular;
+	vec4 ambient;
+	float shininess;
+};
+
+layout(std140) uniform LightBuffer
+{
+	vec4 lightColor;
+    vec3 lightPosition;
+	float lightIntensity;
+};
+
+uniform sampler2D uColorTex;
+
+in vec2 uv;
+in vec3 normal;
+
+out vec4 fragColor;
+
+void main(void)
+{
+	vec4 texel = texture2D(uColorTex, uv).rgba * color;
+	float ndotl = clamp(dot(normal, lightPosition), 0.0, 1.0);
+
+    fragColor = texel * (lightColor * lightIntensity) * ndotl + ambient * texel;
+}
