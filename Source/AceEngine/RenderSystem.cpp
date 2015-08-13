@@ -626,11 +626,12 @@ void RenderSystem::renderMeshes()
 		Shader* shader = material->shader;
 		assert(shader);
 
-		glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transformComp->scale);
-		glm::mat4 rotationMatrix = glm::toMat4(transformComp->rotation);
+		glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transformComp->scale); 
+		glm::mat4 rotationMatrix = glm::toMat4(transformComp->rotation); 
 		glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transformComp->position);
 
-		mDynamicBuffer.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+		mDynamicBuffer.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix; 
+		mDynamicBuffer.normalMatrix = glm::inverseTranspose(mStaticBuffer.viewMatrix * mDynamicBuffer.modelMatrix); 
 		mDynamicBuffer.color = material->color;
 		mDynamicBuffer.specular = material->specular;
 		mDynamicBuffer.ambient = material->ambient;

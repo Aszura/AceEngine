@@ -3,6 +3,7 @@
 layout(std140) uniform DynamicBuffer
 {
     mat4 modelMatrix;
+    mat4 normalMatrix;
 	vec4 color;
 	vec4 specular;
 	vec4 ambient;
@@ -30,7 +31,7 @@ const vec3 gamma = vec3(1.0/2.2);
 void main(void)
 {
 	vec4 texel = texture2D(uColorTex,uv*uTiling).rgba * color;
-	float ndotl = clamp(dot(normal, lightPosition), 0.0, 1.0);
+	float ndotl = clamp(dot(normal, -normalize(lightPosition)), 0.0, 1.0);
 
 	fragColor = texel * (lightColor * lightIntensity) * ndotl + (ambient + lightAmbient) * texel;
 	fragColor = vec4(pow(fragColor.rgb, gamma), texel.a);

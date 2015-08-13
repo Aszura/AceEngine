@@ -9,10 +9,19 @@ layout(std140) uniform StaticBuffer
 layout(std140) uniform DynamicBuffer
 {
     mat4 modelMatrix;
+    mat4 normalMatrix;
 	vec4 color;
 	vec4 specular;
 	vec4 ambient;
 	float shininess;
+};
+
+layout(std140) uniform LightBuffer
+{
+	vec4 lightColor;
+	vec4 lightAmbient;
+    vec3 lightPosition;
+	float lightIntensity;
 };
 
 layout(location = 0) in vec3 vPosition;
@@ -22,15 +31,21 @@ layout(location = 3) in vec3 vBitangent;
 layout(location = 4) in vec2 vUv;
 
 out vec2 uv;
-out mat3 tbn;
+out vec3 lightDirection;
 
 void main(void)
 {
-	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vPosition, 1.0);
-	uv = vUv;
+	vec4 viewPosition = viewMatrix * modelMatrix * vec4(vPosition, 1.0);
 
-	vec3 n = normalize((modelMatrix * vec4(vNormal, 0.0)).xyz);
-	vec3 t = normalize((modelMatrix * vec4(vTangent, 0.0)).xyz);
-	vec3 b = normalize((modelMatrix * vec4(vBitangent, 0.0)).xyz);
-	tbn = mat3(t, b, n);
+	vec3 n = normalize((normalMatrix * vec4(vNormal, 0.0)).xyz);
+	vec3 t = normalize((normalMatrix * vec4(vTangent, 0.0)).xyz);
+	vec3 b = normalize((normalMatrix * vec4(vBitangent, 0.0)).xyz);
+	
+	vec3 lightDir = (viewMatrix * vec4(lightPosition, 0.0)).xyz;
+	lightDirection.x = dot(lightDir, t);
+	lightDirection.y = dot(lightDir, b);
+	lightDirection.z = dot(lightDir, n);
+
+	gl_Position = projectionMatrix * viewPosition;
+	uv = vUv;
 }

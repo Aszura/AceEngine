@@ -33,6 +33,7 @@ private:
 	struct DynamicBuffer
 	{
 		glm::mat4	modelMatrix;
+		glm::mat4	normalMatrix;
 		glm::vec4	color;
 		glm::vec4	specular;
 		glm::vec4	ambient;

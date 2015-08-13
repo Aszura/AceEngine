@@ -9,6 +9,7 @@ layout(std140) uniform StaticBuffer
 layout(std140) uniform DynamicBuffer
 {
     mat4 modelMatrix;
+    mat4 normalMatrix;
 	vec4 color;
 	vec4 specular;
 	vec4 ambient;
