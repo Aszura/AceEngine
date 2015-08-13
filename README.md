@@ -27,6 +27,9 @@ The game engine uses the following libraries:
 * OpenGL Math
 * Glew
 
+# Building
+The project comes with a Visual Studio 2013 solution.
+
 # Controls
 * Mouse: Look around
 * WASD: Move player
