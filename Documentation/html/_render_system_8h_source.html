@@ -122,59 +122,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">struct </span>DynamicBuffer</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        glm::mat4   modelMatrix;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        glm::vec4   color;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        glm::vec4   specular;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        glm::vec4   ambient;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">float</span>       shininess;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    };</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">struct </span>LightBuffer</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        glm::vec4   color;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        glm::vec3   position;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">float</span>       intensity;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">struct </span>SkyboxData</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        GLuint      vbo;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        GLuint      ibo;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        GLuint      vao;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="struct_shader.html">Shader</a>*     shader;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> handleEvents(<span class="keywordtype">bool</span>&amp; running);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> countFps(<span class="keywordtype">float</span> deltaTime) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> loadTextures();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> loadShaders();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> validateShader(GLuint shader, <span class="keyword">const</span> <span class="keywordtype">char</span>* file = 0) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> validateShaderProgram(GLuint program) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> loadMeshData();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> loadTerrainData();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> loadSkyboxData();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> updateStaticBuffer();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> renderSkybox();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> renderTerrain();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> renderMeshes();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    glm::uvec2                      mScreenSize;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_entity_world.html">EntityWorld</a>*                    mEntityWorld;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    sf::RenderWindow*               mWindow;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_resource_loader.html">ResourceLoader&lt;Texture&gt;</a>*        mTextureLoader;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="class_resource_loader.html">ResourceLoader&lt;Shader&gt;</a>*         mShaderLoader;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    SkyboxData                      mSkyboxData;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    StaticBuffer                    mStaticBuffer;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    DynamicBuffer                   mDynamicBuffer;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    LightBuffer                     mLightBuffer;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    GLuint                          mStaticUbo;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    GLuint                          mDynamicUbo;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    GLuint                          mLightUbo;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            staticUboIndex = 1;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            dynamicUboIndex = 2;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            lightUboIndex = 3;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        glm::mat4   normalMatrix;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        glm::vec4   color;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        glm::vec4   specular;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        glm::vec4   ambient;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">float</span>       shininess;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">struct </span>LightBuffer</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        glm::vec4   color;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        glm::vec4   ambient;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        glm::vec3   position;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">float</span>       intensity;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">struct </span>SkyboxData</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        GLuint      vbo;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        GLuint      ibo;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        GLuint      vao;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="struct_shader.html">Shader</a>*     shader;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> handleEvents(<span class="keywordtype">bool</span>&amp; running);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> countFps(<span class="keywordtype">float</span> deltaTime) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> loadTextures();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> loadShaders();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> validateShader(GLuint shader, <span class="keyword">const</span> <span class="keywordtype">char</span>* file = 0) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> validateShaderProgram(GLuint program) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> loadMeshData();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> loadTerrainData();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> loadSkyboxData();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> updateStaticBuffer();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> renderSkybox();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> renderTerrain();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> renderMeshes();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    glm::uvec2                      mScreenSize;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_entity_world.html">EntityWorld</a>*                    mEntityWorld;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    sf::RenderWindow*               mWindow;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="class_resource_loader.html">ResourceLoader&lt;Texture&gt;</a>*        mTextureLoader;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="class_resource_loader.html">ResourceLoader&lt;Shader&gt;</a>*         mShaderLoader;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    SkyboxData                      mSkyboxData;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    StaticBuffer                    mStaticBuffer;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    DynamicBuffer                   mDynamicBuffer;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    LightBuffer                     mLightBuffer;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    GLuint                          mStaticUbo;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    GLuint                          mDynamicUbo;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    GLuint                          mLightUbo;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            staticUboIndex = 1;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            dynamicUboIndex = 2;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span>            lightUboIndex = 3;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
 <div class="ttc" id="class_render_system_html"><div class="ttname"><a href="class_render_system.html">RenderSystem</a></div><div class="ttdef"><b>Definition:</b> RenderSystem.h:17</div></div>
 <div class="ttc" id="class_resource_loader_html"><div class="ttname"><a href="class_resource_loader.html">ResourceLoader</a></div><div class="ttdef"><b>Definition:</b> ComponentSerializer.h:10</div></div>
 <div class="ttc" id="struct_shader_html"><div class="ttname"><a href="struct_shader.html">Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.h:7</div></div>
@@ -184,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 11 2015 14:50:18 for Ace Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 14 2015 05:50:44 for Ace Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

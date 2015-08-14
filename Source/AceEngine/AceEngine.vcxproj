@@ -43,7 +43,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Libraries;$(SolutionDir)\..\Libraries\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Libraries;$(SolutionDir)\..\Libraries\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
@@ -51,7 +51,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Libraries;$(SolutionDir)\..\Libraries\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Libraries;$(SolutionDir)\..\Libraries\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;*.vs;*.ps;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
@@ -72,7 +72,9 @@
       <Command>XCOPY "$(ProjectDir)"*.vs "$(TargetDir)" /D /K /Y
 XCOPY "$(ProjectDir)"*.ps "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)"\..\Libraries\*.dll "$(TargetDir)" /D /K /Y
-XCOPY "$(SolutionDir)"\..\Libraries\Debug\*.dll "$(TargetDir)" /D /K /Y</Command>
+XCOPY "$(SolutionDir)"\..\Libraries\$(Configuration)\*.dll "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)"\..\Scenes "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)"\..\Media "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -97,8 +99,9 @@ XCOPY "$(SolutionDir)"\..\Libraries\Debug\*.dll "$(TargetDir)" /D /K /Y</Command
       <Command>XCOPY "$(ProjectDir)"*.vs "$(TargetDir)" /D /K /Y
 XCOPY "$(ProjectDir)"*.ps "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)"\..\Libraries\*.dll "$(TargetDir)" /D /K /Y
-XCOPY "$(SolutionDir)"\..\Libraries\Release\*.dll "$(TargetDir)" /D /K /Y
-</Command>
+XCOPY "$(SolutionDir)"\..\Libraries\$(Configuration)\*.dll "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)"\..\Scenes "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)"\..\Media "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>

@@ -19,7 +19,7 @@ Game::Game()
 {
 	mSceneLoader = new SceneLoader(&mEntityWorld, &mTextureLoader, &mShaderLoader);
 	mTerrainSystem = new TerrainSystem(&mEntityWorld);
-	mInputSystem = new InputSystem();
+	mInputSystem = new InputSystem(); 
 	//mPlayerSystem = new PlayerSystem(&mEntityWorld);
 	mCameraSystem = new CameraSystem(&mEntityWorld);
 	//mGuiSystem = new GuiSystem(&mEntityWorld);
@@ -32,7 +32,7 @@ Game::Game()
 
 Game::~Game()
 {
-	delete mSceneLoader;
+	delete mSceneLoader; 
 	delete mTerrainSystem;
 	delete mInputSystem;
 	//delete mPlayerSystem;
@@ -46,7 +46,7 @@ Game::~Game()
 
 void Game::start()
 {
-	mSceneLoader->loadScene("../../Scenes/scene1.xml");
+	mSceneLoader->loadScene("Scenes/scene1.xml");
 
 	////Create player & camera
 	//{
@@ -62,12 +62,12 @@ void Game::start()
 	//	EntityId entityId = mEntityWorld.getUnusedEntityId();
 	//	SkyboxComponent* skyboxComp = mEntityWorld.getSkyboxWorld().add(entityId);
 	//	assert(skyboxComp); 
-	//	skyboxComp->textures[0] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_east.bmp");
-	//	skyboxComp->textures[1] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_west.bmp");
-	//	skyboxComp->textures[2] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_up.bmp");
-	//	skyboxComp->textures[3] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_down.bmp");
-	//	skyboxComp->textures[4] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_north.bmp");
-	//	skyboxComp->textures[5] = mTextureLoader.load("../../Media/Textures/Skybox/clouds1_south.bmp");
+	//	skyboxComp->textures[0] = mTextureLoader.load("Media/Textures/Skybox/clouds1_east.bmp");
+	//	skyboxComp->textures[1] = mTextureLoader.load("Media/Textures/Skybox/clouds1_west.bmp");
+	//	skyboxComp->textures[2] = mTextureLoader.load("Media/Textures/Skybox/clouds1_up.bmp");
+	//	skyboxComp->textures[3] = mTextureLoader.load("Media/Textures/Skybox/clouds1_down.bmp");
+	//	skyboxComp->textures[4] = mTextureLoader.load("Media/Textures/Skybox/clouds1_north.bmp");
+	//	skyboxComp->textures[5] = mTextureLoader.load("Media/Textures/Skybox/clouds1_south.bmp");
 	//	skyboxComp->textures[0]->type = TextureType::CubemapPosX;
 	//	skyboxComp->textures[1]->type = TextureType::CubemapNegX;
 	//	skyboxComp->textures[2]->type = TextureType::CubemapPosY;
@@ -101,8 +101,8 @@ void Game::start()
 	//	terrainComp->material = new Material();
 	//	terrainComp->material->shader = mShaderLoader.load("Terrain");
 	//	terrainComp->material->ambient = glm::vec4(0.25f, 0.25f, 0.25f, 0.0f);
-	//	terrainComp->material->texture = mTextureLoader.load("../../Media/Textures/grass_green_d.jpg");
-	//	terrainComp->heightTexture = mTextureLoader.load("../../Media/Textures/terrain1.png");
+	//	terrainComp->material->texture = mTextureLoader.load("Media/Textures/grass_green_d.jpg");
+	//	terrainComp->heightTexture = mTextureLoader.load("Media/Textures/terrain1.png");
 	//}
 
 	////Create ball
@@ -111,11 +111,11 @@ void Game::start()
 	//	TransformComponent* transformComp = mEntityWorld.getTransformWorld().add(entityId);
 	//	assert(transformComp);
 	//	transformComp->position = glm::vec3(0.0f, -2.0f, -10.0f);
-	//	mSceneImporter->loadScene(entityId, "../../Media/Models/bouncingball1.dae", "Diffuse");
+	//	mSceneImporter->loadScene(entityId, "Media/Models/bouncingball1.dae", "Diffuse");
 
 	//	MeshComponent* meshComp = mEntityWorld.getMeshWorld().getFirst(entityId);
 	//	assert(meshComp);
-	//	meshComp->material->texture = mTextureLoader.load("../../Media/Textures/grass_green_d.jpg");
+	//	meshComp->material->texture = mTextureLoader.load("Media/Textures/grass_green_d.jpg");
 	//}
 
 	////Create music
@@ -123,7 +123,7 @@ void Game::start()
 	//	EntityId entityId = mEntityWorld.getUnusedEntityId();
 	//	MusicComponent* musicComp = mEntityWorld.getMusicWorld().add(entityId);
 	//	assert(musicComp);
-	//	musicComp->filePath = "../../Media/Audio/wind.ogg";
+	//	musicComp->filePath = "Media/Audio/wind.ogg";
 	//	musicComp->isPlaying = true;
 	//}
 

@@ -79,7 +79,7 @@ void CameraSystem::update(float deltaTime)
 
 			using namespace events;
 			PlaySoundData* data = new PlaySoundData();
-			data->path = "../../Media/Audio/slap.wav";
+			data->path = "Media/Audio/slap.wav";
 			EventSystem::fireEvent(EventType::PlaySound, data);
 		}
 

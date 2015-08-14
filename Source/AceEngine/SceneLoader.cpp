@@ -91,5 +91,7 @@ bool SceneLoader::loadScene(const std::string& filePath)
 		}
 	}
 
+	mCurrentScene = filePath;
+
 	return true;
 }
