@@ -28,7 +28,7 @@ The game engine uses the following libraries:
 * Glew
 
 # Building
-The project comes with a Visual Studio 2013 solution in the "Source" folder. However, a CMake project has been added to support building for other versions as well.
+The project comes with a Visual Studio 2013 solution in the "Source" folder.
 
 # Controls
 * Mouse: Look around
