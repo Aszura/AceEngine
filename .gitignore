@@ -1,0 +1,11 @@
+# VS file types
+*.suo
+*.sdf
+*.opensdf
+
+# VS folders
+Source/AceEngine/Debug/
+Source/AceEngine/Release/
+
+# VS2015 cache/options dir
+.vs/
