@@ -2,22 +2,35 @@
 
 #include <string>
 
-class EntityWorld;
-struct Texture;
-struct Shader;
-template <class T> class ResourceLoader;
-
-class SceneLoader
+namespace rendering
 {
-public:
-	SceneLoader(EntityWorld* entityWorld, ResourceLoader<Texture>* textureLoader, ResourceLoader<Shader>* shaderLoader);
-	~SceneLoader();
+	struct Texture;
+	struct Shader;
+}
 
-	bool loadScene(const std::string& filePath);
-private:
-	std::string					mCurrentScene;
-	EntityWorld*				mEntityWorld;
-	ResourceLoader<Texture>*	mTextureLoader;
-	ResourceLoader<Shader>*		mShaderLoader;
-};
+namespace utility
+{
+	template <class T> class ResourceLoader;
+}
 
+namespace component
+{
+	class EntityWorld;
+
+	namespace serialization
+	{
+		class SceneLoader
+		{
+		public:
+			SceneLoader(EntityWorld* entityWorld, utility::ResourceLoader<rendering::Texture>* textureLoader, utility::ResourceLoader<rendering::Shader>* shaderLoader);
+			~SceneLoader();
+
+			bool loadScene(const std::string& filePath);
+		private:
+			std::string										mCurrentScene;
+			EntityWorld*									mEntityWorld;
+			utility::ResourceLoader<rendering::Texture>*	mTextureLoader;
+			utility::ResourceLoader<rendering::Shader>*		mShaderLoader;
+		};
+	}
+}

@@ -65,7 +65,7 @@
       <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;PhysX3DEBUG_x86.lib;PhysX3CommonDEBUG_x86.lib;PhysX3CookingDEBUG_x86.lib;PhysX3CharacterKinematicDEBUG_x86.lib;PhysX3ExtensionsDEBUG.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -90,7 +90,7 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
@@ -108,6 +108,8 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ComponentSerializer.h" />
+    <ClInclude Include="..\..\Source\InputCallback.h" />
+    <ClInclude Include="..\..\Source\KeyMap.h" />
     <ClInclude Include="..\..\Source\MusicComponent.h" />
     <ClInclude Include="..\..\Source\SceneLoader.h" />
     <ClInclude Include="..\..\Source\SkyboxComponent.h" />
@@ -142,6 +144,7 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClInclude Include="..\..\Source\TransformComponent.h" />
     <ClInclude Include="..\..\Source\Utilities.h" />
     <ClInclude Include="..\..\Source\VertexData.h" />
+    <ClInclude Include="..\..\Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioSystem.cpp" />

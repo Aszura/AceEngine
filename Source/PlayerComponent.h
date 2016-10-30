@@ -2,8 +2,11 @@
 #include "CustomTypes.h"
 #include <glm\glm.hpp>
 
-struct PlayerComponent
+namespace component
 {
-	EntityId	entityId;
-	ElementId	componentId;
-};
+	struct PlayerComponent
+	{
+		EntityId	entityId;
+		ElementId	componentId;
+	};
+}

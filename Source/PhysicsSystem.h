@@ -11,26 +11,31 @@ namespace physx
 	class PxControllerManager;
 }
 
-class EntityWorld;
-
-class PhysicsSystem
+namespace component
 {
-public:
-	PhysicsSystem(EntityWorld* entityWorld);
-	~PhysicsSystem();
+	class EntityWorld;
+}
 
-	void start();
-	void update(float deltaTime);
-private:
-	EntityWorld*					mEntityWorld;
-	physx::PxFoundation*			mFoundation;
-	physx::PxPhysics*				mPhysics;
-	physx::PxScene*					mScene;
-	physx::PxDefaultCpuDispatcher*	mCpuDispatcher;
-	physx::PxCooking*				mCooking;
-	physx::PxControllerManager*		mControllerManager;
-	unsigned int					mNbThreads;
-	float							mAccumulator;
-	float							mStepSize;
-};
+namespace physics
+{
+	class PhysicsSystem
+	{
+	public:
+		PhysicsSystem(component::EntityWorld* entityWorld);
+		~PhysicsSystem();
 
+		void start();
+		void update(float deltaTime);
+	private:
+		component::EntityWorld*			mEntityWorld;
+		physx::PxFoundation*			mFoundation;
+		physx::PxPhysics*				mPhysics;
+		physx::PxScene*					mScene;
+		physx::PxDefaultCpuDispatcher*	mCpuDispatcher;
+		physx::PxCooking*				mCooking;
+		physx::PxControllerManager*		mControllerManager;
+		unsigned int					mNbThreads;
+		float							mAccumulator;
+		float							mStepSize;
+	};
+}

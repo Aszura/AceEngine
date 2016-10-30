@@ -4,7 +4,7 @@
 #include <glm\glm.hpp>
 #include <string>
 
-namespace sf
+namespace rendering
 {
 	class Window;
 }
@@ -26,6 +26,6 @@ namespace events
 
 	struct WindowCreatedData : public EventData
 	{
-		sf::Window* window;
+		rendering::Window* window;
 	};
 }

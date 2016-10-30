@@ -13,22 +13,28 @@ namespace events
 	struct EventData;
 }
 
-class EntityWorld;
-
-class AudioSystem
+namespace component
 {
-public:
-	AudioSystem(EntityWorld* entityWorld);
-	~AudioSystem();
+	class EntityWorld;
+}
 
-	void start();
-	void update(float deltaTime);
-private:
-	void onPlaySound(events::EventData* eventData);
+namespace audio
+{
+	class AudioSystem
+	{
+	public:
+		AudioSystem(component::EntityWorld* entityWorld);
+		~AudioSystem();
 
-	ResourceLoader<Sound>			mSoundLoader;
-	glm::ivec2						mMovementAxis;
-	EntityWorld*					mEntityWorld;
-	std::forward_list<sf::Sound>	mPlayedSounds;
-	std::map<ElementId, sf::Music>	mPlayedMusic;
-};
+		void start();
+		void update(float deltaTime);
+	private:
+		void onPlaySound(events::EventData* eventData);
+
+		utility::ResourceLoader<Sound>				mSoundLoader;
+		glm::ivec2									mMovementAxis;
+		component::EntityWorld*						mEntityWorld;
+		std::forward_list<sf::Sound>				mPlayedSounds;
+		std::map<component::ElementId, sf::Music>	mPlayedMusic;
+	};
+}

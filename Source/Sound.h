@@ -2,9 +2,12 @@
 #include <string>
 #include <SFML\Audio.hpp>
 
-struct Sound
+namespace audio
 {
-	sf::SoundBuffer	buffer;
-	std::string		path;
-	bool			isLoaded = false;
-};
+	struct Sound
+	{
+		sf::SoundBuffer	buffer;
+		std::string		path;
+		bool			isLoaded = false;
+	};
+}

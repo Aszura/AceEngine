@@ -4,12 +4,15 @@
 #include <string>
 #include <map>
 
-struct Shader
+namespace rendering
 {
-	std::map<const char*, unsigned int>	uniformLocations;
-	std::map<const char*, unsigned int>	uniformBlockIndices;
-	std::string							path;
-	unsigned int						id;
-	unsigned int						vertexShader;
-	unsigned int						fragmentShader;
-};
+	struct Shader
+	{
+		std::map<const char*, unsigned int>	uniformLocations;
+		std::map<const char*, unsigned int>	uniformBlockIndices;
+		std::string							path;
+		unsigned int						id;
+		unsigned int						vertexShader;
+		unsigned int						fragmentShader;
+	};
+}

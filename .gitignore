@@ -2,6 +2,12 @@
 *.suo
 *.sdf
 *.opensdf
+*.obj
+*.tlog
+*.db
+*.opendb
+*.vspx
+*.log
 
 # VS folders
 Source/AceEngine/Debug/
@@ -9,3 +15,9 @@ Source/AceEngine/Release/
 
 # VS2015 cache/options dir
 .vs/
+Binaries/Debug/
+Project/VS2015/Debug/
+Project/VS2013/Release/
+Project/VS2013/Debug/
+Project/VS2015/Release/
+Binaries/Release/

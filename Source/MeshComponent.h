@@ -5,14 +5,17 @@
 #include <glm\glm.hpp>
 #include <vector>
 
-struct MeshComponent
+namespace component
 {
-	std::vector<VertexData>		vertices;
-	std::vector<glm::uvec3>		indices;
-	Material*					material;
-	EntityId					entityId;
-	ElementId					componentId;
-	unsigned int				vao;
-	unsigned int				vbo;
-	unsigned int				ibo;
-};
+	struct MeshComponent
+	{
+		std::vector<rendering::VertexData>		vertices;
+		std::vector<glm::uvec3>		indices;
+		rendering::Material*					material;
+		EntityId					entityId;
+		ElementId					componentId;
+		unsigned int				vao;
+		unsigned int				vbo;
+		unsigned int				ibo;
+	};
+}

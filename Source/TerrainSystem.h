@@ -1,16 +1,21 @@
 #pragma once
 #include <glm\glm.hpp>
 
-class EntityWorld;
-
-class TerrainSystem
+namespace component
 {
-public:
-	TerrainSystem(EntityWorld* entityWorld);
-	~TerrainSystem();
+	class EntityWorld;
+}
 
-	void start();
-private:
-	EntityWorld*	mEntityWorld;
-};
+namespace rendering
+{
+	class TerrainSystem
+	{
+	public:
+		TerrainSystem(component::EntityWorld* entityWorld);
+		~TerrainSystem();
 
+		void start();
+	private:
+		component::EntityWorld*	mEntityWorld;
+	};
+}

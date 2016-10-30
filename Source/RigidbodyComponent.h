@@ -6,9 +6,12 @@ namespace physx
 	class PxRigidDynamic;
 };
 
-struct RigidbodyComponent
+namespace component
 {
-	EntityId				entityId;
-	ElementId				componentId;
-	physx::PxRigidDynamic*	rigidbody = nullptr;
-};
+	struct RigidbodyComponent
+	{
+		EntityId				entityId;
+		ElementId				componentId;
+		physx::PxRigidDynamic*	rigidbody = nullptr;
+	};
+}

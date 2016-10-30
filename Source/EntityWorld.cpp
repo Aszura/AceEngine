@@ -1,6 +1,9 @@
 #include "EntityWorld.h"
 
-EntityId EntityWorld::getUnusedEntityId()
+namespace component
 {
-	return m_freeIdCounter++;
+	EntityId EntityWorld::getUnusedEntityId()
+	{
+		return m_freeIdCounter++;
+	}
 }

@@ -2,40 +2,43 @@
 #include <unordered_map>
 #include <vector>
 
-template<class T>
-class ResourceLoader
+namespace utility
 {
-public:
-	inline std::vector<T*>& getUnitializedResources()
+	template<class T>
+	class ResourceLoader
 	{
-		return mUnitializedResources;
-	}
-
-	inline std::unordered_map<std::string, T>& getResources()
-	{
-		return mResources;
-	}
-
-	T* load(std::string resourcePath)
-	{
-		if (resourcePath[0] == '/')
+	public:
+		inline std::vector<T*>& getUnitializedResources()
 		{
-			resourcePath.erase(resourcePath.begin(), resourcePath.begin() + 1);
+			return mUnitializedResources;
 		}
 
-		if (mResources.find(resourcePath) != mResources.end())
+		inline std::unordered_map<std::string, T>& getResources()
 		{
-			return &mResources[resourcePath];
+			return mResources;
 		}
-		else
+
+		T* load(std::string resourcePath)
 		{
-			mResources[resourcePath] = T();
-			mResources[resourcePath].path = resourcePath;
-			mUnitializedResources.push_back(&mResources[resourcePath]);
-			return &mResources[resourcePath];
+			if (resourcePath[0] == '/')
+			{
+				resourcePath.erase(resourcePath.begin(), resourcePath.begin() + 1);
+			}
+
+			if (mResources.find(resourcePath) != mResources.end())
+			{
+				return &mResources[resourcePath];
+			}
+			else
+			{
+				mResources[resourcePath] = T();
+				mResources[resourcePath].path = resourcePath;
+				mUnitializedResources.push_back(&mResources[resourcePath]);
+				return &mResources[resourcePath];
+			}
 		}
-	}
-private:
-	std::unordered_map<std::string, T>	mResources;
-	std::vector<T*>						mUnitializedResources;
-};
+	private:
+		std::unordered_map<std::string, T>	mResources;
+		std::vector<T*>						mUnitializedResources;
+	};
+}

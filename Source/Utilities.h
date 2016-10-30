@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-namespace utilities
+namespace utility
 {
 	bool pointInRect(glm::vec2 point, glm::vec2 rectPos, glm::vec2 rectSize)
 	{
@@ -23,7 +23,7 @@ namespace utilities
 	//helper funktion - Read shader file
 	char* textFileRead(const char *fileName)
 	{
-		char* text;
+		char* text = "";
 
 		if (fileName != NULL) 
 		{
@@ -53,7 +53,7 @@ namespace utilities
 	//helper funktion - Read shader file with string
 	char* textFileRead(const std::string& fileName)
 	{
-		char* text;
+		char* text = "";
 
 		if (!fileName.empty()) 
 		{

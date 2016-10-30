@@ -1,18 +1,23 @@
 #pragma once
 #include <glm\glm.hpp>
 
-class EntityWorld;
-
-class CameraSystem
+namespace component
 {
-public:
-	CameraSystem(EntityWorld* entityWorld);
-	~CameraSystem();
+	class EntityWorld;
+}
 
-	void start();
-	void update(float deltaTime);
-private:
-	EntityWorld* mEntityWorld;
-	glm::ivec2 mMovementAxis;
-};
+namespace rendering
+{
+	class CameraSystem
+	{
+	public:
+		CameraSystem(component::EntityWorld* entityWorld);
+		~CameraSystem();
 
+		void start();
+		void update(float deltaTime);
+	private:
+		component::EntityWorld* mEntityWorld;
+		glm::ivec2 mMovementAxis;
+	};
+}

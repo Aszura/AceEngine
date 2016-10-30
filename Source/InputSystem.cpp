@@ -2,132 +2,136 @@
 #include "EventSystem.h"
 #include "EventType.h"
 #include "EventData.h"
-#include <SFML\Window.hpp>
+#include "Window.h"
 #include <functional>
 
-std::bitset<static_cast<size_t>(InputSystem::Key::KeyCount)> InputSystem::mKeys = std::bitset<static_cast<size_t>(InputSystem::Key::KeyCount)>();
-std::bitset<static_cast<size_t>(InputSystem::Key::KeyCount)> InputSystem::mLastKeys = std::bitset<static_cast<size_t>(InputSystem::Key::KeyCount)>();
-std::bitset<static_cast<size_t>(InputSystem::MouseButton::ButtonCount)> InputSystem::mMouseButtons = std::bitset<static_cast<size_t>(InputSystem::MouseButton::ButtonCount)>();
-std::bitset<static_cast<size_t>(InputSystem::MouseButton::ButtonCount)> InputSystem::mLastMouseButtons = std::bitset<static_cast<size_t>(InputSystem::MouseButton::ButtonCount)>();
-glm::ivec2 InputSystem::mMousePosition = glm::ivec2(0,0);
-glm::ivec2 InputSystem::mMouseDelta = glm::ivec2(0,0);
-
-InputSystem::InputSystem()
-	: mWindow(nullptr)
-	//, mLastMousePosition(glm::ivec2(0))
+namespace input
 {
-	using namespace events;
-	EventSystem::registerListener(EventType::WindowCreated, [this](EventData* eventData){ onWindowCreated(eventData); });
-}
+	std::bitset<static_cast<size_t>(KeyMap::size)> InputSystem::mKeys = std::bitset<static_cast<size_t>(KeyMap::size)>();
+	std::bitset<static_cast<size_t>(KeyMap::size)> InputSystem::mLastKeys = std::bitset<static_cast<size_t>(KeyMap::size)>();
+	std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> InputSystem::mMouseButtons = std::bitset<static_cast<size_t>(KeyMap::startKeyboard)>();
+	std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> InputSystem::mLastMouseButtons = std::bitset<static_cast<size_t>(KeyMap::startKeyboard)>();
+	glm::ivec2 InputSystem::mMousePosition = glm::ivec2(0,0);
+	glm::ivec2 InputSystem::mMouseDelta = glm::ivec2(0,0);
 
-void InputSystem::update()
-{
-	assert(mWindow);
-
-	if (!mWindow->hasFocus())
+	InputSystem::InputSystem(const InputCallback& inputCallback)
+		: mWindow(nullptr)
+		, mInputCallback(inputCallback)
 	{
-		return;
+		using namespace events;
+		EventSystem::registerListener(EventType::WindowCreated, [this](EventData* eventData){ onWindowCreated(eventData); });
 	}
 
-	sf::Vector2i windowCenter = sf::Vector2i(mWindow->getSize() / 2u);
-
-	sf::Vector2i sfMousePos = sf::Mouse::getPosition(*mWindow);
-	mMousePosition = glm::ivec2(sfMousePos.x, sfMousePos.y);
-	mMouseDelta = mMousePosition - glm::ivec2(windowCenter.x, windowCenter.y);
-	//mLastMousePosition = mMousePosition;
-
-	if (glm::abs(mMouseDelta.x) > 0 || glm::abs(mMouseDelta.y) > 0)
+	void InputSystem::update()
 	{
-		events::MouseMovedData* eventData = new events::MouseMovedData();
-		eventData->mousePosition.x = mMouseDelta.x;
-		eventData->mousePosition.y = mMouseDelta.y;
-		events::EventSystem::fireEvent(events::EventType::MouseMoved, eventData);
+		assert(mWindow);
+
+		if (!mWindow->hasFocus())
+		{
+			return;
+		}
+
+		glm::ivec2 windowCenter = glm::ivec2(mWindow->getSize() / 2u);
+
+		long posX, posY;
+		mInputCallback.mousePosCallback(posX, posY);
+		mMousePosition = mWindow->transformPointToScreen( posX, posY);
+		mMouseDelta = mMousePosition - mWindow->transformPointToScreen(windowCenter.x, windowCenter.y);
+
+		if (glm::abs(mMouseDelta.x) > 0 || glm::abs(mMouseDelta.y) > 0)
+		{
+			events::MouseMovedData* eventData = new events::MouseMovedData();
+			eventData->mousePosition.x = mMouseDelta.x;
+			eventData->mousePosition.y = mMouseDelta.y;
+			events::EventSystem::fireEvent(events::EventType::MouseMoved, eventData);
+		}
+
+		//Reset mouse to center of screen
+		mWindow->setCursorPos(windowCenter.x, windowCenter.y);
+
+		for (unsigned int i = static_cast<int>(KeyMap::startMouse)+1; i < static_cast<int>(KeyMap::startKeyboard); ++i)
+		{
+			mLastMouseButtons[i] = mMouseButtons[i];
+			mMouseButtons[i] = static_cast<bool>(mInputCallback.keyCallback(static_cast<int>(i)));
+		}
+
+		for (unsigned int i = static_cast<int>(KeyMap::startKeyboard) + 1; i < static_cast<int>(KeyMap::size); ++i)
+		{
+			mLastKeys[i] = mKeys[i];
+			mKeys[i] = static_cast<bool>(mInputCallback.keyCallback(static_cast<int>(i)));
+		}
 	}
 
-	//Reset mouse to center of screen
-	sf::Mouse::setPosition(windowCenter, *mWindow);
-
-	for (unsigned int i = 0; i < sf::Mouse::ButtonCount; ++i)
+	bool InputSystem::isMouseButtonDown(KeyMap button)
 	{
-		mLastMouseButtons[i] = mMouseButtons[i];
-		mMouseButtons[i] = sf::Mouse::isButtonPressed(static_cast<sf::Mouse::Button>(i));
+		if (mLastMouseButtons[static_cast<int>(button)] != mMouseButtons[static_cast<int>(button)])
+		{
+			return mMouseButtons[static_cast<int>(button)];
+		}
+
+		return false;
 	}
 
-	for (unsigned int i = 0; i < sf::Keyboard::KeyCount; ++i)
+	bool InputSystem::isMouseButtonUp(KeyMap button)
 	{
-		mLastKeys[i] = mKeys[i];
-		mKeys[i] = sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(i));
-	}
-}
+		if (mLastMouseButtons[static_cast<int>(button)] != mMouseButtons[static_cast<int>(button)])
+		{
+			return !mMouseButtons[static_cast<int>(button)];
+		}
 
-bool InputSystem::isMouseButtonDown(const MouseButton& button)
-{
-	if (mLastMouseButtons[static_cast<int>(button)] != mMouseButtons[static_cast<int>(button)])
+		return false;
+	}
+
+	bool InputSystem::isMouseButtonPressed(KeyMap button)
 	{
 		return mMouseButtons[static_cast<int>(button)];
 	}
 
-	return false;
-}
-
-bool InputSystem::isMouseButtonUp(const MouseButton& button)
-{
-	if (mLastMouseButtons[static_cast<int>(button)] != mMouseButtons[static_cast<int>(button)])
+	const glm::ivec2& InputSystem::getMousePosition()
 	{
-		return !mMouseButtons[static_cast<int>(button)];
+		return mMousePosition;
 	}
 
-	return false;
-}
+	const glm::ivec2& InputSystem::getMouseDelta()
+	{
+		return mMouseDelta;
+	}
 
-bool InputSystem::isMouseButtonPressed(const MouseButton& button)
-{
-	return mMouseButtons[static_cast<int>(button)];
-}
+	bool InputSystem::isKeyDown(KeyMap key)
+	{
+		if (mLastKeys[static_cast<int>(key)] != mKeys[static_cast<int>(key)])
+		{
+			return mKeys[static_cast<int>(key)];
+		}
 
-const glm::ivec2& InputSystem::getMousePosition()
-{
-	return mMousePosition;
-}
+		return false;
+	}
 
-const glm::ivec2& InputSystem::getMouseDelta()
-{
-	return mMouseDelta;
-}
+	bool InputSystem::isKeyUp(KeyMap key)
+	{
+		if (mLastKeys[static_cast<int>(key)] != mKeys[static_cast<int>(key)])
+		{
+			return !mKeys[static_cast<int>(key)];
+		}
 
-bool InputSystem::isKeyDown(const Key& key)
-{
-	if (mLastKeys[static_cast<int>(key)] != mKeys[static_cast<int>(key)])
+		return false;
+	}
+
+	bool InputSystem::isKeyPressed(KeyMap key)
 	{
 		return mKeys[static_cast<int>(key)];
 	}
 
-	return false;
-}
-
-bool InputSystem::isKeyUp(const Key& key)
-{
-	if (mLastKeys[static_cast<int>(key)] != mKeys[static_cast<int>(key)])
+	void InputSystem::onWindowCreated(events::EventData* eventData)
 	{
-		return !mKeys[static_cast<int>(key)];
-	}
+		using namespace events;
 
-	return false;
-}
-
-bool InputSystem::isKeyPressed(const Key& key)
-{
-	return mKeys[static_cast<int>(key)];
-}
-
-void InputSystem::onWindowCreated(events::EventData* eventData)
-{
-	using namespace events;
-
-	if (WindowCreatedData* data = static_cast<WindowCreatedData*>(eventData))
-	{
-		mWindow = data->window;
-		sf::Vector2i windowCenter = sf::Vector2i(mWindow->getSize() / 2u);
-		sf::Mouse::setPosition(windowCenter, *mWindow);
+		if (WindowCreatedData* data = static_cast<WindowCreatedData*>(eventData))
+		{
+			mWindow = data->window;
+			glm::ivec2 windowCenter = glm::ivec2(mWindow->getSize() / 2u);
+			windowCenter = mWindow->transformPointToScreen(windowCenter.x, windowCenter.y);
+			mWindow->setCursorPos(windowCenter.x, windowCenter.y);
+		}
 	}
 }

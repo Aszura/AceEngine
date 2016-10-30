@@ -3,10 +3,13 @@
 #include "Texture.h"
 #include <string>
 
-struct SkyboxComponent
+namespace component
 {
-	Texture*		textures[6];
-	EntityId		entityId;
-	ElementId		componentId;
-	unsigned int	cubemapId;
-};
+	struct SkyboxComponent
+	{
+		rendering::Texture*		textures[6];
+		component::EntityId		entityId;
+		component::ElementId	componentId;
+		unsigned int			cubemapId;
+	};
+}
