@@ -88,56 +88,6 @@ namespace rendering
 				EventSystem::fireEvent(EventType::PlaySound, data);
 			}
 
-
-			if (glm::abs(InputSystem::getMouseDelta().x) > 0.0001f || glm::abs(InputSystem::getMouseDelta().y) > 0.0001f)
-			{
-				glm::vec3 amount = glm::vec3(-InputSystem::getMouseDelta().x, InputSystem::getMouseDelta().y, 0) * lookSensitivity * deltaTime;
-				amount = glm::radians(amount);
-
-				// ---------
-				cameraComp.yaw += amount.x;
-				cameraComp.pitch += amount.y;
-				cameraComp.pitch = glm::clamp(cameraComp.pitch, -1.56f, 1.56f); //Limit up/down look
-
-				glm::mat4 rotMat = glm::yawPitchRoll(cameraComp.yaw, cameraComp.pitch, cameraComp.roll);
-				cameraComp.direction = glm::vec3(rotMat * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-				cameraComp.direction = glm::normalize(cameraComp.direction);
-
-				glm::mat4 rotateYTempMatrix;
-				rotateYTempMatrix = glm::rotate(rotateYTempMatrix, cameraComp.yaw, glm::vec3(0.0f, 1.0f, 0.0f));
-				cameraComp.right = glm::vec3(rotateYTempMatrix * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
-				cameraComp.up = glm::vec3(rotateYTempMatrix * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
-				cameraComp.forward = glm::vec3(rotateYTempMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-
-				// ---------
-
-				// ------------------
-				////Pitch
-				//glm::quat q = glm::angleAxis(amount.y, cameraComp.right);
-				//cameraComp.up = glm::rotate(q, cameraComp.up);
-				//cameraComp.forward = glm::rotate(q, cameraComp.forward);
-				//cameraTransform.rotation = q * cameraTransform.rotation;
-
-				////Yaw
-				//q = angleAxis(amount.x, cameraComp.up);
-				//cameraComp.right = glm::rotate(q, cameraComp.right);
-				//cameraComp.forward = glm::rotate(q, cameraComp.forward);
-				//cameraTransform.rotation = q * cameraTransform.rotation;
-
-				// ------------------
-
-				/*glm::quat rotation = playerTransform.rotation;
-				rotation = glm::normalize(glm::angleAxis(amount.y, glm::vec3(0, 1, 0))) * rotation;
-				playerTransform.rotation = rotation;*/
-
-				//glm::vec3 localRight = glm::normalize(rotation * glm::vec3(1, 0, 0));
-				//glm::quat newRotation = glm::normalize(glm::angleAxis(amount.x, localRight)) * rotation;
-				//glm::quat rotationChange = glm::normalize(glm::angleAxis(amount.x, glm::vec3(1, 0, 0)));
-				//glm::quat cameraRotation = rotationChange * cameraTransform.rotation;
-				//cameraTransform.rotation = cameraRotation;
-				//cameraTransform.position = rotationChange * cameraTransform.position;
-			}
-
 			if (InputSystem::isKeyUp(KeyMap::vk_P))
 			{
 				int a = 0;

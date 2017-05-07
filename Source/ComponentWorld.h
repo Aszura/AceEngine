@@ -27,7 +27,15 @@ namespace component
 		inline T* getFirst(EntityId id)
 		{
 			//assert(mEntities.count(id) > 0);
-			return mComponents.lookup(mEntities[id][0]);
+
+			if (exist(id))
+			{
+				return mComponents.lookup(mEntities[id][0]);
+			}
+			else
+			{
+				return nullptr;
+			}
 		}
 
 		inline T* add(EntityId id)

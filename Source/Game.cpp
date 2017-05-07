@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "TerrainSystem.h"
 #include "InputSystem.h"
 #include "CameraSystem.h"
 #include "PhysicsSystem.h"
@@ -26,10 +25,9 @@ namespace game
 		: mWindowData(windowData)
 	{
 		mSceneLoader = new SceneLoader(&mEntityWorld, &mTextureLoader, &mShaderLoader);
-		mTerrainSystem = new TerrainSystem(&mEntityWorld);
 		mInputSystem = new InputSystem(inputCallback);
 		mCameraSystem = new CameraSystem(&mEntityWorld);
-		mPhysicsSystem = new PhysicsSystem(&mEntityWorld);
+		//mPhysicsSystem = new PhysicsSystem(&mEntityWorld);
 		mAudioSystem = new AudioSystem(&mEntityWorld);
 		mRenderSystem = new RenderSystem(&mEntityWorld, &mTextureLoader, &mShaderLoader, mWindowData);
 	}
@@ -38,10 +36,9 @@ namespace game
 	Game::~Game()
 	{
 		delete mSceneLoader;
-		delete mTerrainSystem;
 		delete mInputSystem;
 		delete mCameraSystem;
-		delete mPhysicsSystem;
+		//delete mPhysicsSystem;
 		delete mAudioSystem;
 		delete mRenderSystem;
 	}
@@ -129,9 +126,8 @@ namespace game
 		//	musicComp->isPlaying = true;
 		//}
 
-		mTerrainSystem->start();
 		mRenderSystem->start(800, 600);
-		mPhysicsSystem->start();
+		//mPhysicsSystem->start();
 		mAudioSystem->start();
 	}
 
@@ -145,7 +141,7 @@ namespace game
 
 		//Update systems
 		mInputSystem->update();
-		mPhysicsSystem->update(deltaTime);
+		//mPhysicsSystem->update(deltaTime);
 		mCameraSystem->update(deltaTime);
 		mAudioSystem->update(deltaTime);
 		mRenderSystem->update(deltaTime);

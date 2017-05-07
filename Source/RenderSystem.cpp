@@ -45,20 +45,12 @@ namespace rendering
 			glDeleteProgram(shader.id);
 		}
 
-		for (auto& meshComp : mEntityWorld->getMeshWorld().getArray())
-		{
-			glDeleteBuffers(1, &meshComp.vbo);
-			glDeleteBuffers(1, &meshComp.ibo);
-			glDeleteVertexArrays(1, &meshComp.vao);
-		}
+		glDeleteBuffers(1, &mDrawVbo);
+		glDeleteBuffers(1, &mQuadVbo);
+		glDeleteVertexArrays(1, &mVao);
 
 		glDeleteBuffers(1, &mStaticUbo);
 		glDeleteBuffers(1, &mDynamicUbo);
-		glDeleteBuffers(1, &mLightUbo);
-
-		glDeleteBuffers(1, &mSkyboxData.vbo);
-		glDeleteBuffers(1, &mSkyboxData.ibo);
-		glDeleteVertexArrays(1, &mSkyboxData.vao);
 
 		mWindowData->close();
 	}
@@ -120,20 +112,13 @@ namespace rendering
 		glBindBuffer(GL_UNIFORM_BUFFER, mDynamicUbo);
 		glBufferData(GL_UNIFORM_BUFFER, sizeof(DynamicBuffer), NULL, GL_STREAM_DRAW);
 
-		//Generate light uniform buffer object
-		glGenBuffers(1, &mLightUbo);
-		glBindBuffer(GL_UNIFORM_BUFFER, mLightUbo);
-		glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBuffer), NULL, GL_STREAM_DRAW);
-
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-		mSkyboxData.shader = mShaderLoader->load("Skybox");
+
 
 		loadTextures();
 		loadShaders();
 		loadMeshData();
-		loadTerrainData();
-		loadSkyboxData();
 	}
 
 	void RenderSystem::countFps(float deltaTime) const
@@ -159,7 +144,7 @@ namespace rendering
 		int format;
 
 		// get the device context (DC)
-		*mWindowData->getHDC() = GetDC(*mWindowData->getHWnd());
+		*mWindowData->getHDC() = GetDC(*mWindowData->getHWnd()); 
 
 		// set the pixel format for the DC
 		ZeroMemory(&pfd, sizeof(pfd));
@@ -195,64 +180,40 @@ namespace rendering
 		for (auto& texture : mTextureLoader->getUnitializedResources())
 		{
 			texture->image.loadFromFile(texture->path);
+			texture->image.flipVertically(); // texture origin -> upper right, openGL origin -> bottom right
 			glm::uvec2 size = glm::uvec2(texture->image.getSize().x, texture->image.getSize().y);
 			texture->size = size;
 
 			//Upload 2d textures
-			if (texture->type == TextureType::Texture2D)
+			GLuint id;
+			glGenTextures(1, &id);
+
+			GLenum internalFormat = GL_SRGB_ALPHA;
+
+			if (!texture->sRGB)
 			{
-				GLuint id;
-				glGenTextures(1, &id);
-
-				GLenum internalFormat = GL_SRGB_ALPHA;
-
-				if (!texture->sRGB)
-				{
-					internalFormat = GL_RGBA;
-				}
-
-				//Bind normal texture for storing image
-				glBindTexture(GL_TEXTURE_2D, id);
-				//Load texture from pixels
-				glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->image.getPixelsPtr());
-				//Generate mipmaps
-				glGenerateMipmap(GL_TEXTURE_2D);
-				//Use trilinear interpolation for minification
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				//Use bilinear interpolation for magnification
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				//Set anisotropic filtering
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-
-				texture->id = id;
-				texture->isLoaded = true;
+				internalFormat = GL_RGBA;
 			}
+
+			//Bind normal texture for storing image
+			glBindTexture(GL_TEXTURE_2D, id);
+			//Load texture from pixels
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->image.getPixelsPtr());
+			//Generate mipmaps
+			//glGenerateMipmap(GL_TEXTURE_2D);
+			//Use trilinear interpolation for minification
+			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			//Use bilinear interpolation for magnification
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			//Set anisotropic filtering
+			//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+
+			texture->id = id;
+			texture->isLoaded = true;
 		}
 
 		mTextureLoader->getUnitializedResources().clear();
-
-		//Upload cubemap for skybox
-		for (auto& skyboxComp : mEntityWorld->getSkyboxWorld().getArray())
-		{
-			glGenTextures(1, &skyboxComp.cubemapId);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxComp.cubemapId);
-
-			for (size_t i = 0; i < 6; i++)
-			{
-				//Load texture from pixels
-				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, skyboxComp.textures[i]->size.x, skyboxComp.textures[i]->size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, skyboxComp.textures[i]->image.getPixelsPtr());
-				//Use trilinear interpolation for minification
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				//Use bilinear interpolation for magnification
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				//Set wrap mode
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
-				skyboxComp.textures[i]->isLoaded = true;
-			}
-		}
 	}
 
 	void RenderSystem::loadShaders()
@@ -290,18 +251,13 @@ namespace rendering
 
 			shader->uniformBlockIndices["StaticBuffer"] = glGetUniformBlockIndex(shader->id, "StaticBuffer");
 			shader->uniformBlockIndices["DynamicBuffer"] = glGetUniformBlockIndex(shader->id, "DynamicBuffer");
-			shader->uniformBlockIndices["LightBuffer"] = glGetUniformBlockIndex(shader->id, "LightBuffer");
 			shader->uniformLocations["uColorTex"] = glGetUniformLocation(shader->id, "uColorTex");
-			shader->uniformLocations["uNormalTex"] = glGetUniformLocation(shader->id, "uNormalTex");
 
 			glUniformBlockBinding(shader->id, shader->uniformBlockIndices["StaticBuffer"], staticUboIndex);
 			glBindBufferRange(GL_UNIFORM_BUFFER, staticUboIndex, mStaticUbo, 0, sizeof(StaticBuffer));
 
 			glUniformBlockBinding(shader->id, shader->uniformBlockIndices["DynamicBuffer"], dynamicUboIndex);
 			glBindBufferRange(GL_UNIFORM_BUFFER, dynamicUboIndex, mDynamicUbo, 0, sizeof(DynamicBuffer));
-
-			glUniformBlockBinding(shader->id, shader->uniformBlockIndices["LightBuffer"], lightUboIndex);
-			glBindBufferRange(GL_UNIFORM_BUFFER, lightUboIndex, mLightUbo, 0, sizeof(LightBuffer));
 		}
 
 		mShaderLoader->getUnitializedResources().clear();
@@ -331,7 +287,7 @@ namespace rendering
 		memset(buffer, 0, BUFFER_SIZE);
 		glGetProgramInfoLog(program, BUFFER_SIZE, &length, buffer);
 
-		if (length > 0)
+		if (length > 0) 
 		{
 			std::cout << "Program " << program << " link error: " << buffer << std::endl;
 		}
@@ -348,142 +304,37 @@ namespace rendering
 
 	void RenderSystem::loadMeshData()
 	{
-		for (auto& meshComp : mEntityWorld->getMeshWorld().getArray())
-		{
-			glGenVertexArrays(1, &meshComp.vao);
-			glBindVertexArray(meshComp.vao);
+		glGenVertexArrays(1, &mVao);
+		glBindVertexArray(mVao);
 
-			glGenBuffers(1, &meshComp.vbo);
-			glBindBuffer(GL_ARRAY_BUFFER, meshComp.vbo);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData) * meshComp.vertices.size(), &meshComp.vertices[0], GL_STATIC_DRAW);
+		glGenBuffers(1, &mDrawVbo);
+		glGenBuffers(1, &mQuadVbo);		
+		glBindBuffer(GL_ARRAY_BUFFER, mQuadVbo);
 
-			//Vertices
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), 0);
-			glEnableVertexAttribArray(0);
+		glm::vec2 quad[4];
+		quad[0] = glm::vec2(0.0f, 0.0f);
+		quad[1] = glm::vec2(1.0f, 0.0f);
+		quad[2] = glm::vec2(0.0f, 1.0f);
+		quad[3] = glm::vec2(1.0f, 1.0f);
 
-			//Normals
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), reinterpret_cast<void*>(sizeof(glm::vec3)));
-			glEnableVertexAttribArray(1);
-
-			//Tangents
-			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), reinterpret_cast<void*>(sizeof(glm::vec3) * 2));
-			glEnableVertexAttribArray(2);
-
-			//Bitangents
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), reinterpret_cast<void*>(sizeof(glm::vec3) * 3));
-			glEnableVertexAttribArray(3);
-
-			//Uvs
-			glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), reinterpret_cast<void*>(sizeof(glm::vec3) * 4));
-			glEnableVertexAttribArray(4);
-
-			glGenBuffers(1, &meshComp.ibo);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComp.ibo);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(glm::uvec3) * meshComp.indices.size(), &meshComp.indices[0], GL_STATIC_DRAW);
-
-			glBindVertexArray(0);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		}
-	}
-
-	void RenderSystem::loadTerrainData()
-	{
-		for (auto& terrainComp : mEntityWorld->getTerrainWorld().getArray())
-		{
-			//Generate VAO
-			glGenVertexArrays(1, &terrainComp.vao);
-			//Bind VAO
-			glBindVertexArray(terrainComp.vao);
-
-			//Generate VBO for vertices, normals and texture coordinates
-			glGenBuffers(1, &terrainComp.vbo);
-			//Bind VBO in order to use
-			glBindBuffer(GL_ARRAY_BUFFER, terrainComp.vbo);
-
-			//Generate buffer data set
-			glBufferData(GL_ARRAY_BUFFER, terrainComp.terrainData.size() * sizeof(TerrainVertexData), &terrainComp.terrainData[0], GL_STATIC_DRAW);
-
-			//Positions
-			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(TerrainVertexData), 0);
-			glEnableVertexAttribArray(0);
-
-			//Normals
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertexData), reinterpret_cast<void*>(sizeof(glm::vec2)));
-			glEnableVertexAttribArray(1);
-
-			//Uvs
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(TerrainVertexData), reinterpret_cast<void*>(sizeof(glm::vec2) + sizeof(glm::vec3)));
-			glEnableVertexAttribArray(2);
-
-			//Generate VBO for indices
-			glGenBuffers(1, &terrainComp.ibo);
-
-			//Bind VBO for indices in order to use
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, terrainComp.ibo);
-
-			//Generate buffer data set for indices
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, terrainComp.terrainIndices.size() * sizeof(unsigned int), &terrainComp.terrainIndices[0], GL_STATIC_DRAW);
-
-			glBindVertexArray(0);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		}
-	}
-
-	void RenderSystem::loadSkyboxData()
-	{
-		const GLfloat cubeVertices[] = {
-			// front
-			-1.0, -1.0, 1.0,
-			1.0, -1.0, 1.0,
-			1.0, 1.0, 1.0,
-			-1.0, 1.0, 1.0,
-			// back
-			-1.0, -1.0, -1.0,
-			1.0, -1.0, -1.0,
-			1.0, 1.0, -1.0,
-			-1.0, 1.0, -1.0,
-		};
-
-		const GLuint cubeIndices[] = {
-			// front
-			0, 1, 2,
-			2, 3, 0,
-			// top
-			3, 2, 6,
-			6, 7, 3,
-			// back
-			7, 6, 5,
-			5, 4, 7,
-			// bottom
-			4, 5, 1,
-			1, 0, 4,
-			// left
-			4, 0, 3,
-			3, 7, 4,
-			// right
-			1, 5, 6,
-			6, 2, 1,
-		};
-
-		glGenVertexArrays(1, &mSkyboxData.vao);
-		glBindVertexArray(mSkyboxData.vao);
-
-		glGenBuffers(1, &mSkyboxData.vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, mSkyboxData.vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), &cubeVertices[0], GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, 0);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 4, quad, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
 
-		glGenBuffers(1, &mSkyboxData.ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mSkyboxData.ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), &cubeIndices[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, mDrawVbo);
+		unsigned int divisor = 1;
 
+		glVertexAttribPointer(1, 2, GL_UNSIGNED_INT, GL_FALSE, sizeof(SpriteData), 0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribDivisor(1, divisor);
+		
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		for (auto& meshComp : mEntityWorld->getMeshWorld().getArray())
+		{
+			meshComp.spriteData.size = meshComp.material->texture->size;
+		}
 	}
 
 	void RenderSystem::updateStaticBuffer()
@@ -491,12 +342,12 @@ namespace rendering
 		component::CameraComponent* cameraComp = &*mEntityWorld->getCameraWorld().getArray().begin();
 		assert(cameraComp);
 		component::TransformComponent* cameraTransform = mEntityWorld->getTransformWorld().getFirst(cameraComp->entityId);
-		assert(cameraTransform);
+		assert(cameraTransform);  
 
-		mStaticBuffer.projectionMatrix = glm::perspective(glm::radians(cameraComp->fov), static_cast<float>(mScreenSize.x) / static_cast<float>(mScreenSize.y), cameraComp->zNear, cameraComp->zFar);
+		mStaticBuffer.projectionMatrix = glm::ortho(cameraTransform->position.x, static_cast<float>(mScreenSize.x), cameraTransform->position.y, static_cast<float>(mScreenSize.y), cameraComp->zNear, cameraComp->zFar);
 
 		//-----------------------
-
+		 
 		mStaticBuffer.viewMatrix = glm::lookAt(cameraTransform->position, cameraTransform->position + cameraComp->direction, cameraComp->up);
 
 		//-----------------------
@@ -534,113 +385,14 @@ namespace rendering
 		if (mEntityWorld->getCameraWorld().getArray().length() > 0)
 		{
 			updateStaticBuffer();
-			//glEnable(GL_BLEND);
-			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-			for (auto& lightComp : mEntityWorld->getLightWorld().getArray())
-			{
-				component::TransformComponent* lightTransform = mEntityWorld->getTransformWorld().getFirst(lightComp.entityId);
-				assert(lightTransform);
+			renderMeshes();
 
-				mLightBuffer.color = lightComp.color;
-				mLightBuffer.ambient = lightComp.ambient;
-				mLightBuffer.position = lightTransform->position;
-				mLightBuffer.intensity = lightComp.intensity;
-
-				glBindBuffer(GL_UNIFORM_BUFFER, mLightUbo);
-				glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBuffer), &mLightBuffer, GL_STREAM_DRAW);
-				glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
-				renderTerrain();
-				renderMeshes();
-			}
-
-			renderSkybox();
 			glDisable(GL_BLEND);
 			mWindowData->display();
 		}
-	}
-
-	void RenderSystem::renderSkybox()
-	{
-		component::CameraComponent* cameraComp = &*mEntityWorld->getCameraWorld().getArray().begin();
-		assert(cameraComp);
-		component::TransformComponent* cameraTransform = mEntityWorld->getTransformWorld().getFirst(cameraComp->entityId);
-		assert(cameraTransform);
-
-		glCullFace(GL_FRONT);
-
-		glUseProgram(mSkyboxData.shader->id);
-		glBindVertexArray(mSkyboxData.vao);
-
-		for (auto& skyboxComp : mEntityWorld->getSkyboxWorld().getArray())
-		{
-			mDynamicBuffer.modelMatrix = glm::translate(glm::mat4(1.0f), cameraTransform->position);
-
-			glBindBuffer(GL_UNIFORM_BUFFER, mDynamicUbo);
-			glBufferData(GL_UNIFORM_BUFFER, sizeof(DynamicBuffer), &mDynamicBuffer, GL_STREAM_DRAW);
-			glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxComp.cubemapId);
-			glUniform1i(mSkyboxData.shader->uniformLocations["uColorTex"], 0);
-			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-		}
-
-		glBindVertexArray(0);
-		glUseProgram(0);
-
-		glCullFace(GL_BACK);
-	}
-
-	void RenderSystem::renderTerrain()
-	{
-		glEnable(GL_PRIMITIVE_RESTART);
-
-		for (auto& terrainComp : mEntityWorld->getTerrainWorld().getArray())
-		{
-			component::TransformComponent* transformComp = mEntityWorld->getTransformWorld().getFirst(terrainComp.entityId);
-			assert(transformComp);
-			Material* material = terrainComp.material;
-			assert(material);
-			Shader* shader = material->shader;
-			assert(shader);
-
-			glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), transformComp->scale);
-			glm::mat4 rotationMatrix = glm::toMat4(transformComp->rotation);
-			glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transformComp->position);
-
-			mDynamicBuffer.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-			mDynamicBuffer.color = material->color;
-			mDynamicBuffer.specular = material->specular;
-			mDynamicBuffer.ambient = material->ambient;
-			mDynamicBuffer.shininess = material->shininess;
-
-			glBindBuffer(GL_UNIFORM_BUFFER, mDynamicUbo);
-			glBufferData(GL_UNIFORM_BUFFER, sizeof(DynamicBuffer), &mDynamicBuffer, GL_STREAM_DRAW);
-			glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
-			glUseProgram(shader->id);
-			glBindVertexArray(terrainComp.vao);
-
-			glUniform1ui(glGetUniformLocation(shader->id, "uTiling"), terrainComp.tiling);
-			glUniform1f(glGetUniformLocation(shader->id, "uMaxTerrainHeight"), terrainComp.maxHeight);
-
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, material->texture->id);
-			glUniform1i(shader->uniformLocations["uColorTex"], 0);
-
-			glActiveTexture(GL_TEXTURE1);
-			glBindTexture(GL_TEXTURE_2D, terrainComp.heightTexture->id);
-			glUniform1i(glGetUniformLocation(shader->id, "uHeightMap"), 1);
-
-			glPrimitiveRestartIndex(terrainComp.indicesNum);
-			glDrawElements(GL_TRIANGLE_STRIP, terrainComp.indicesNum, GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
-			glUseProgram(0);
-		}
-
-		glDisable(GL_PRIMITIVE_RESTART);
 	}
 
 	void RenderSystem::renderMeshes()
@@ -661,36 +413,34 @@ namespace rendering
 			glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), transformComp->position);
 
 			mDynamicBuffer.modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-			mDynamicBuffer.normalMatrix = glm::inverseTranspose(mStaticBuffer.viewMatrix * mDynamicBuffer.modelMatrix);
 			mDynamicBuffer.color = material->color;
-			mDynamicBuffer.specular = material->specular;
-			mDynamicBuffer.ambient = material->ambient;
-			mDynamicBuffer.shininess = material->shininess;
 
 			glBindBuffer(GL_UNIFORM_BUFFER, mDynamicUbo);
 			glBufferData(GL_UNIFORM_BUFFER, sizeof(DynamicBuffer), &mDynamicBuffer, GL_STREAM_DRAW);
 			glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 			glUseProgram(shader->id);
-			glBindVertexArray(meshComp.vao);
 
 			if (meshComp.material->texture != nullptr)
 			{
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, material->texture->id);
 				glUniform1i(shader->uniformLocations["uColorTex"], 0);
-
-				if (meshComp.material->normalTexture != nullptr)
-				{
-					glActiveTexture(GL_TEXTURE1);
-					glBindTexture(GL_TEXTURE_2D, material->normalTexture->id);
-					glUniform1i(shader->uniformLocations["uNormalTex"], 1);
-				}
 			}
 
-			glDrawElements(GL_TRIANGLES, meshComp.indices.size() * 3, GL_UNSIGNED_INT, 0);
+			glBindBuffer(GL_ARRAY_BUFFER, mDrawVbo);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(SpriteData), &meshComp.spriteData, GL_STREAM_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			glBindVertexArray(mVao);
+			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, 1);
 			glBindVertexArray(0);
+
 			glUseProgram(0);
 		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, mDrawVbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(SpriteData), NULL, GL_STREAM_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 }

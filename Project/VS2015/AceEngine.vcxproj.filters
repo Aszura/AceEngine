@@ -27,9 +27,6 @@
     <ClInclude Include="..\..\Source\SceneLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SkyboxComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,9 +69,6 @@
     <ClInclude Include="..\..\Source\InputSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\LightComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,16 +93,7 @@
     <ClInclude Include="..\..\Source\RigidbodyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SceneImporter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TerrainComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TerrainSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Texture.h">
@@ -120,9 +105,6 @@
     <ClInclude Include="..\..\Source\Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\VertexData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\InputCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -130,6 +112,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SpriteData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -164,39 +149,15 @@
     <ClCompile Include="..\..\Source\RenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\SceneImporter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\SceneLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TerrainSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\Diffuse.ps">
+    <None Include="..\..\Source\Diffuse2D.ps">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Source\Diffuse.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\DiffuseNormal.ps">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\DiffuseNormal.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\Skybox.ps">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\Skybox.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\Terrain.ps">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Source\Terrain.vs">
+    <None Include="..\..\Source\Diffuse2D.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

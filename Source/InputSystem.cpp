@@ -47,18 +47,18 @@ namespace input
 		}
 
 		//Reset mouse to center of screen
-		mWindow->setCursorPos(windowCenter.x, windowCenter.y);
+		//mWindow->setCursorPos(windowCenter.x, windowCenter.y);
 
 		for (unsigned int i = static_cast<int>(KeyMap::startMouse)+1; i < static_cast<int>(KeyMap::startKeyboard); ++i)
 		{
 			mLastMouseButtons[i] = mMouseButtons[i];
-			mMouseButtons[i] = static_cast<bool>(mInputCallback.keyCallback(static_cast<int>(i)));
+			mMouseButtons[i] = (mInputCallback.keyCallback(static_cast<int>(i)) > 0) ? 1 : 0;
 		}
 
 		for (unsigned int i = static_cast<int>(KeyMap::startKeyboard) + 1; i < static_cast<int>(KeyMap::size); ++i)
 		{
 			mLastKeys[i] = mKeys[i];
-			mKeys[i] = static_cast<bool>(mInputCallback.keyCallback(static_cast<int>(i)));
+			mKeys[i] = (mInputCallback.keyCallback(static_cast<int>(i))) > 0 ? 1 : 0;
 		}
 	}
 

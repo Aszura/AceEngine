@@ -1,1 +1,19 @@
-﻿
+﻿  RenderSystem.cpp
+  Generating code
+  5 of 3159 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+PhysX3ExtensionsCHECKED.lib(ExtCpuWorkerThread.obj) : warning LNK4099: PDB 'PhysX3ExtensionsCHECKED.pdb' was not found with 'PhysX3ExtensionsCHECKED.lib(ExtCpuWorkerThread.obj)' or at 'C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\PhysX3ExtensionsCHECKED.pdb'; linking object as if no debug info
+PhysX3ExtensionsCHECKED.lib(ExtDefaultCpuDispatcher.obj) : warning LNK4099: PDB 'PhysX3ExtensionsCHECKED.pdb' was not found with 'PhysX3ExtensionsCHECKED.lib(ExtDefaultCpuDispatcher.obj)' or at 'C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\PhysX3ExtensionsCHECKED.pdb'; linking object as if no debug info
+PhysX3ExtensionsCHECKED.lib(ExtDefaultErrorCallback.obj) : warning LNK4099: PDB 'PhysX3ExtensionsCHECKED.pdb' was not found with 'PhysX3ExtensionsCHECKED.lib(ExtDefaultErrorCallback.obj)' or at 'C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\PhysX3ExtensionsCHECKED.pdb'; linking object as if no debug info
+PhysX3ExtensionsCHECKED.lib(ExtDefaultSimulationFilterShader.obj) : warning LNK4099: PDB 'PhysX3ExtensionsCHECKED.pdb' was not found with 'PhysX3ExtensionsCHECKED.lib(ExtDefaultSimulationFilterShader.obj)' or at 'C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\PhysX3ExtensionsCHECKED.pdb'; linking object as if no debug info
+PhysX3ExtensionsCHECKED.lib(ExtRigidBodyExt.obj) : warning LNK4099: PDB 'PhysX3ExtensionsCHECKED.pdb' was not found with 'PhysX3ExtensionsCHECKED.lib(ExtRigidBodyExt.obj)' or at 'C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Binaries\Release\PhysX3ExtensionsCHECKED.pdb'; linking object as if no debug info
+  AceEngine.vcxproj -> C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Project\VS2015\\..\..\Binaries\Release\AceEngine.exe
+  AceEngine.vcxproj -> C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Project\VS2015\\..\..\Binaries\Release\AceEngine.pdb (Full PDB)
+  0 Datei(en) kopiert
+  0 Datei(en) kopiert
+  0 Datei(en) kopiert
+  0 Datei(en) kopiert
+  0 Datei(en) kopiert
+  0 Datei(en) kopiert

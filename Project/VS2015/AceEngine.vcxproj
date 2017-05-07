@@ -112,7 +112,6 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClInclude Include="..\..\Source\KeyMap.h" />
     <ClInclude Include="..\..\Source\MusicComponent.h" />
     <ClInclude Include="..\..\Source\SceneLoader.h" />
-    <ClInclude Include="..\..\Source\SkyboxComponent.h" />
     <ClInclude Include="..\..\Source\Sound.h" />
     <ClInclude Include="..\..\Source\AudioSystem.h" />
     <ClInclude Include="..\..\Source\CameraComponent.h" />
@@ -127,7 +126,6 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClInclude Include="..\..\Source\EventType.h" />
     <ClInclude Include="..\..\Source\Game.h" />
     <ClInclude Include="..\..\Source\InputSystem.h" />
-    <ClInclude Include="..\..\Source\LightComponent.h" />
     <ClInclude Include="..\..\Source\Material.h" />
     <ClInclude Include="..\..\Source\MeshComponent.h" />
     <ClInclude Include="..\..\Source\PackedArray.h" />
@@ -136,14 +134,11 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClInclude Include="..\..\Source\RenderSystem.h" />
     <ClInclude Include="..\..\Source\ResourceLoader.h" />
     <ClInclude Include="..\..\Source\RigidbodyComponent.h" />
-    <ClInclude Include="..\..\Source\SceneImporter.h" />
     <ClInclude Include="..\..\Source\Shader.h" />
-    <ClInclude Include="..\..\Source\TerrainComponent.h" />
-    <ClInclude Include="..\..\Source\TerrainSystem.h" />
     <ClInclude Include="..\..\Source\Texture.h" />
     <ClInclude Include="..\..\Source\TransformComponent.h" />
     <ClInclude Include="..\..\Source\Utilities.h" />
-    <ClInclude Include="..\..\Source\VertexData.h" />
+    <ClInclude Include="..\..\Source\SpriteData.h" />
     <ClInclude Include="..\..\Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,27 +152,11 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClCompile Include="..\..\Source\Main.cpp" />
     <ClCompile Include="..\..\Source\PhysicsSystem.cpp" />
     <ClCompile Include="..\..\Source\RenderSystem.cpp" />
-    <ClCompile Include="..\..\Source\SceneImporter.cpp" />
     <ClCompile Include="..\..\Source\SceneLoader.cpp" />
-    <ClCompile Include="..\..\Source\TerrainSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\Diffuse.ps">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\Source\Diffuse.vs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\Source\DiffuseNormal.ps" />
-    <None Include="..\..\Source\DiffuseNormal.vs" />
-    <None Include="..\..\Source\Skybox.ps" />
-    <None Include="..\..\Source\Skybox.vs" />
-    <None Include="..\..\Source\Terrain.ps">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\Source\Terrain.vs">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
+    <None Include="..\..\Source\Diffuse2D.ps" />
+    <None Include="..\..\Source\Diffuse2D.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

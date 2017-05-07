@@ -17,7 +17,7 @@ namespace component
 		float		yaw = 0.0f;
 		float		roll = 0.0f;
 		float		fov = 65.0f;
-		float		zNear = 0.1f;
-		float		zFar = 1000.0f;
+		float		zNear = -10.0f;
+		float		zFar = 10.0f;
 	};
 }

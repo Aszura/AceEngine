@@ -96,38 +96,6 @@ namespace physics
 			charControllerComp.controller = c;
 		}
 
-		for (auto& terrainComp : mEntityWorld->getTerrainWorld().getArray())
-		{
-			component::TransformComponent* transformComp = mEntityWorld->getTransformWorld().getFirst(terrainComp.entityId);
-			assert(transformComp);
-
-			unsigned int size = terrainComp.heightTexture->size.x * terrainComp.heightTexture->size.y;
-			PxHeightFieldSample* samples = new PxHeightFieldSample[size];
-
-			for (size_t i = 0; i < size; i++)
-			{
-				samples[i].height = static_cast<physx::PxI16>((terrainComp.heightTexture->image.getPixelsPtr()[i * 4] / 255.0f) * terrainComp.maxHeight);
-				samples[i].materialIndex0 = 0;
-				samples[i].materialIndex1 = 0;
-				//samples[i].setTessFlag();
-			}
-
-			PxHeightFieldDesc hfDesc;
-			hfDesc.format = PxHeightFieldFormat::eS16_TM;
-			hfDesc.nbColumns = terrainComp.heightTexture->size.x;
-			hfDesc.nbRows = terrainComp.heightTexture->size.y;
-			hfDesc.thickness = -10.0f;
-			hfDesc.samples.data = samples;
-			hfDesc.samples.stride = sizeof(PxHeightFieldSample);
-
-			PxHeightField* aHeightField = mCooking->createHeightField(hfDesc, mPhysics->getPhysicsInsertionCallback());
-			PxHeightFieldGeometry* hfGeom = new PxHeightFieldGeometry(aHeightField, PxMeshGeometryFlags(), 1.0f, terrainComp.terrainScale, terrainComp.terrainScale);
-			PxRigidStatic* heightFieldActor = mPhysics->createRigidStatic(PxTransform(transformComp->position.x, transformComp->position.y, transformComp->position.z));
-
-			PxShape* aHeightFieldShape = heightFieldActor->createShape(*hfGeom, *mPhysics->createMaterial(0.5f, 0.5f, 0.1f));
-			mScene->addActor(*heightFieldActor);
-		}
-
 		for (auto& capsuleColliderComp : mEntityWorld->getCapsuleColliderWorld().getArray())
 		{
 			component::TransformComponent* transformComp = mEntityWorld->getTransformWorld().getFirst(capsuleColliderComp.entityId);

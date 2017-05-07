@@ -1,10 +1,10 @@
 #include "SceneLoader.h"
 #include "ComponentSerializer.h"
-#include "SceneImporter.h"
 #include "CustomTypes.h"
 #include "EntityWorld.h"
 #include "Texture.h"
 #include "ResourceLoader.h"
+#include "Shader.h"
 
 #include <assert.h>
 #include <fstream>
@@ -63,7 +63,6 @@ namespace component
 			}
 
 			//Load models
-			rendering::SceneImporter sceneImporter = rendering::SceneImporter(mEntityWorld, mTextureLoader, mShaderLoader);
 			xml_node<>* modelsParentNode = doc->first_node("Models");
 
 			for (xml_node<>* node = modelsParentNode->first_node(); node != nullptr; node = node->next_sibling())
@@ -80,18 +79,16 @@ namespace component
 				strStream << data["entityId"];
 				strStream >> entityId;
 
-				sceneImporter.loadScene(entityId, data["scenePath"].c_str(), data["shader"]);
+				component::MeshComponent* meshComponent = mEntityWorld->getMeshWorld().add(entityId);
+				assert(meshComponent);
+
+				meshComponent->material = new rendering::Material();
+				meshComponent->material->shader = mShaderLoader->load(data["shader"]);
 
 				if (data.count("materialTexture") > 0)
 				{
 					MeshComponent* meshComp = mEntityWorld->getMeshWorld().getFirst(entityId);
 					meshComp->material->texture = mTextureLoader->load(data["materialTexture"]);
-				}
-
-				if (data.count("materialNormalTexture") > 0)
-				{
-					MeshComponent* meshComp = mEntityWorld->getMeshWorld().getFirst(entityId);
-					meshComp->material->normalTexture = mTextureLoader->load(data["materialNormalTexture"]);
 				}
 			}
 

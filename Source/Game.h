@@ -18,7 +18,6 @@ namespace physics
 
 namespace rendering
 {
-	class TerrainSystem;
 	class CameraSystem;
 	class RenderSystem;
 	class Window;
@@ -54,7 +53,6 @@ namespace game
 		utility::ResourceLoader<rendering::Texture>		mTextureLoader;
 		utility::ResourceLoader<rendering::Shader>		mShaderLoader;
 		component::serialization::SceneLoader*			mSceneLoader;
-		rendering::TerrainSystem*						mTerrainSystem;
 		input::InputSystem*								mInputSystem;
 		rendering::CameraSystem*						mCameraSystem;
 		physics::PhysicsSystem*							mPhysicsSystem;
