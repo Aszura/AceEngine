@@ -78,62 +78,62 @@ namespace utility
 
 
 		PackedArray(size_t elementCount)
-			: mCount(0)
-			, mElementCount(elementCount)
-			, mElements(new T[elementCount])
-			, mIndices(new Index[elementCount])
+			: m_count(0)
+			, m_elementCount(elementCount)
+			, m_elements(new T[elementCount])
+			, m_indices(new Index[elementCount])
 		{
 			//Check power of two
-			assert((mElementCount & (mElementCount - 1)) == 0);
+			assert((m_elementCount & (m_elementCount - 1)) == 0);
 
 			//Fill indices array with starting values
-			for (unsigned int i = 0; i < mElementCount; ++i)
+			for (unsigned int i = 0; i < m_elementCount; ++i)
 			{
-				mIndices[i].innerIndex = INVALID_VALUE;
-				mIndices[i].outerIndex = i; //set start mesh ids
-				mIndices[i].freeNext = i + 1; //set index for next element in freelist
+				m_indices[i].innerIndex = INVALID_VALUE;
+				m_indices[i].outerIndex = i; //set start mesh ids
+				m_indices[i].freeNext = i + 1; //set index for next element in freelist
 			}
 
 			//Set "freeptr" to first element
-			mNextFreeIndex = 0;
+			m_nextFreeIndex = 0;
 
 			//Link sentinels to each other
-			mHead.next = &mTail;
-			mTail.prev = &mHead;
+			m_head.next = &m_tail;
+			m_tail.prev = &m_head;
 		}
 
 		~PackedArray()
 		{
-			delete[] mElements;
-			delete[] mIndices;
+			delete[] m_elements;
+			delete[] m_indices;
 		}
 
 		ElementId add()
 		{
 			//Check if mesh array full
-			if (mCount == mElementCount)
+			if (m_count == m_elementCount)
 			{
 				printf("ComponentEntityWorld: Can't add any more components. Already full.");
 				return 0;
 			}
 
 			//Get next index struct from freelist
-			Index& newIndex = mIndices[mNextFreeIndex];
+			Index& newIndex = m_indices[m_nextFreeIndex];
 
 			//Set unique id
-			newIndex.outerIndex += mElementCount;
+			newIndex.outerIndex += m_elementCount;
 
 			//Set to last/new element in packed array
-			newIndex.innerIndex = mCount;
-			++mCount;
+			newIndex.innerIndex = m_count;
+			++m_count;
 
 			//Set next free element in freelist
-			mNextFreeIndex = newIndex.freeNext;
+			m_nextFreeIndex = newIndex.freeNext;
 
 			//Place index struct in linked list
-			newIndex.prev = &mHead;
-			newIndex.next = mHead.next;
-			mHead.next = &newIndex;
+			newIndex.prev = &m_head;
+			newIndex.next = m_head.next;
+			m_head.next = &newIndex;
 
 			return newIndex.outerIndex;
 		}
@@ -142,7 +142,7 @@ namespace utility
 		void remove(ElementId id)
 		{
 			//Use mask instead of e.g. modulo to get original id for indices array
-			Index& removeIndex = mIndices[id & (mElementCount - 1)];
+			Index& removeIndex = m_indices[id & (m_elementCount - 1)];
 
 			//Check if id is valid
 			if (removeIndex.innerIndex == INVALID_VALUE)
@@ -150,17 +150,17 @@ namespace utility
 				return;
 			}
 
-			--mCount;
+			--m_count;
 
 			//Get index struct for last mesh in mesh array
-			Index& lastIndex = *mHead.next;
+			Index& lastIndex = *m_head.next;
 
 			//swap mesh with last mesh in array to fill hole
-			std::swap(mElements[removeIndex.innerIndex], mElements[lastIndex.innerIndex]);
+			std::swap(m_elements[removeIndex.innerIndex], m_elements[lastIndex.innerIndex]);
 
 			//Remove lastIndex from last position
-			mHead.next = lastIndex.next;
-			lastIndex.next->prev = &mHead;
+			m_head.next = lastIndex.next;
+			lastIndex.next->prev = &m_head;
 
 			//Replace removeIndex with lastIndex in linked list
 			lastIndex.next = removeIndex.next;
@@ -177,15 +177,15 @@ namespace utility
 			removeIndex.innerIndex = INVALID_VALUE;
 
 			//Place in freelist
-			removeIndex.freeNext = mNextFreeIndex;
-			mNextFreeIndex = id & (mElementCount - 1);
+			removeIndex.freeNext = m_nextFreeIndex;
+			m_nextFreeIndex = id & (m_elementCount - 1);
 		}
 
 
 		T* lookup(ElementId id)
 		{
 			//Use mask instead of e.g. modulo to get original id for indices array
-			Index& lookupIndex = mIndices[id & (mElementCount - 1)];
+			Index& lookupIndex = m_indices[id & (m_elementCount - 1)];
 
 			//Check if id is valid
 			if (lookupIndex.innerIndex == INVALID_VALUE)
@@ -193,30 +193,30 @@ namespace utility
 				return nullptr;
 			}
 
-			return &mElements[lookupIndex.innerIndex];
+			return &m_elements[lookupIndex.innerIndex];
 		}
 
 		void iterateFunction(std::function<void(T*)> itFunction)
 		{
-			for (unsigned int i = 0; i < mCount; ++i)
+			for (unsigned int i = 0; i < m_count; ++i)
 			{
-				itFunction(&mElements[i]);
+				itFunction(&m_elements[i]);
 			}
 		}
 
 		inline T* getElementArray()
 		{
-			return mElements;
+			return m_elements;
 		}
 
 		inline const T* getElementArray() const
 		{
-			return mElements;
+			return m_elements;
 		}
 
 		inline unsigned int length() const
 		{
-			return mCount;
+			return m_count;
 		}
 
 		Iterator begin()
@@ -226,7 +226,7 @@ namespace utility
 
 		Iterator end()
 		{
-			return Iterator(this, mCount);
+			return Iterator(this, m_count);
 		}
 
 		ConstIterator begin() const
@@ -236,7 +236,7 @@ namespace utility
 
 		ConstIterator end() const
 		{
-			return ConstIterator(this, mCount);
+			return ConstIterator(this, m_count);
 		}
 	private:
 		//Index struct for decoupling ids and mesh array
@@ -255,17 +255,17 @@ namespace utility
 			Index*			next;
 		};
 
-		size_t			mElementCount;
-		Index*			mIndices;
+		size_t			m_elementCount;
+		Index*			m_indices;
 
 		//index for next free index -> freelist
-		unsigned int	mNextFreeIndex;
+		unsigned int	m_nextFreeIndex;
 
 		//Sentinels for backward linked list to get last meshes for swapping
-		Index			mHead;
-		Index			mTail;
+		Index			m_head;
+		Index			m_tail;
 
-		T*				mElements;
-		unsigned int	mCount;
+		T*				m_elements;
+		unsigned int	m_count;
 	};
 }

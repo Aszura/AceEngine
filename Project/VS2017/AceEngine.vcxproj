@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugLibDll|Win32">
+      <Configuration>DebugLibDll</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseLibDll|Win32">
+      <Configuration>ReleaseLibDll</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>AceEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLibDll|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLibDll|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugLibDll|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLibDll|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\Binaries\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLibDll|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\Binaries\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\Binaries\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ExtensionsToDeleteOnClean>*.dll;*.vs;*.ps;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLibDll|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\..\Binaries\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ExtensionsToDeleteOnClean>*.dll;*.vs;*.ps;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
+      <Message>Copy .dlls and shader files to target dir.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugLibDll|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
+      <Message>Copy .dlls and shader files to target dir.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
+      <Message>Copy .dlls and shader files to target dir.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLibDll|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;GLM_FORCE_PURE;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
+      <Message>Copy .dlls and shader files to target dir.</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\ComponentSerializer.h" />
+    <ClInclude Include="..\..\Source\InputCallback.h" />
+    <ClInclude Include="..\..\Source\KeyMap.h" />
+    <ClInclude Include="..\..\Source\MusicComponent.h" />
+    <ClInclude Include="..\..\Source\SceneLoader.h" />
+    <ClInclude Include="..\..\Source\Sound.h" />
+    <ClInclude Include="..\..\Source\AudioSystem.h" />
+    <ClInclude Include="..\..\Source\CameraComponent.h" />
+    <ClInclude Include="..\..\Source\CameraSystem.h" />
+    <ClInclude Include="..\..\Source\CapsuleColliderComponent.h" />
+    <ClInclude Include="..\..\Source\CharacterControllerComponent.h" />
+    <ClInclude Include="..\..\Source\ComponentWorld.h" />
+    <ClInclude Include="..\..\Source\CustomTypes.h" />
+    <ClInclude Include="..\..\Source\EntityWorld.h" />
+    <ClInclude Include="..\..\Source\EventData.h" />
+    <ClInclude Include="..\..\Source\EventSystem.h" />
+    <ClInclude Include="..\..\Source\EventType.h" />
+    <ClInclude Include="..\..\Source\Game.h" />
+    <ClInclude Include="..\..\Source\InputSystem.h" />
+    <ClInclude Include="..\..\Source\Material.h" />
+    <ClInclude Include="..\..\Source\SpriteComponent.h" />
+    <ClInclude Include="..\..\Source\PackedArray.h" />
+    <ClInclude Include="..\..\Source\RenderSystem.h" />
+    <ClInclude Include="..\..\Source\ResourceLoader.h" />
+    <ClInclude Include="..\..\Source\Shader.h" />
+    <ClInclude Include="..\..\Source\Texture.h" />
+    <ClInclude Include="..\..\Source\TransformComponent.h" />
+    <ClInclude Include="..\..\Source\Utilities.h" />
+    <ClInclude Include="..\..\Source\SpriteData.h" />
+    <ClInclude Include="..\..\Source\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioSystem.cpp" />
+    <ClCompile Include="..\..\Source\CameraSystem.cpp" />
+    <ClCompile Include="..\..\Source\ComponentSerializer.cpp" />
+    <ClCompile Include="..\..\Source\EntityWorld.cpp" />
+    <ClCompile Include="..\..\Source\EventSystem.cpp" />
+    <ClCompile Include="..\..\Source\Game.cpp" />
+    <ClCompile Include="..\..\Source\InputSystem.cpp" />
+    <ClCompile Include="..\..\Source\Main.cpp" />
+    <ClCompile Include="..\..\Source\RenderSystem.cpp" />
+    <ClCompile Include="..\..\Source\SceneLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\Diffuse2D.ps" />
+    <None Include="..\..\Source\Diffuse2D.vs" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

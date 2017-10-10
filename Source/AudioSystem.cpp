@@ -6,18 +6,11 @@
 
 namespace audio
 {
-	AudioSystem::AudioSystem(component::EntityWorld* entityWorld)
-		: mEntityWorld(entityWorld)
+	AudioSystem::AudioSystem(component::EntityWorld& entityWorld)
+		: m_entityWorld(entityWorld)
 	{
-		assert(entityWorld);
-
 		using namespace events;
 		EventSystem::registerListener(EventType::PlaySound, [this](EventData* eventData) { onPlaySound(eventData); });
-	}
-
-	AudioSystem::~AudioSystem()
-	{
-
 	}
 
 	void AudioSystem::start()
@@ -26,31 +19,31 @@ namespace audio
 
 	void AudioSystem::update(float deltaTime)
 	{
-		for (auto& musicComp : mEntityWorld->getMusicWorld().getArray())
+		for (auto& musicComp : m_entityWorld.getMusicWorld().getArray())
 		{
-			if (musicComp.isPlaying && mPlayedMusic.count(musicComp.componentId) == 0)
+			if (musicComp.isPlaying && m_playedMusic.count(musicComp.componentId) == 0)
 			{
 				//Start playing music
-				mPlayedMusic[musicComp.componentId].openFromFile(musicComp.filePath);
-				mPlayedMusic[musicComp.componentId].setLoop(musicComp.isLooping);
-				mPlayedMusic[musicComp.componentId].play();
+				m_playedMusic[musicComp.componentId].openFromFile(musicComp.filePath);
+				m_playedMusic[musicComp.componentId].setLoop(musicComp.isLooping);
+				m_playedMusic[musicComp.componentId].play();
 			}
-			else if (!musicComp.isPlaying && mPlayedMusic.count(musicComp.componentId) > 0)
+			else if (!musicComp.isPlaying && m_playedMusic.count(musicComp.componentId) > 0)
 			{
 				//Stop playing music
-				mPlayedMusic[musicComp.componentId].stop();
-				mPlayedMusic.erase(musicComp.componentId);
+				m_playedMusic[musicComp.componentId].stop();
+				m_playedMusic.erase(musicComp.componentId);
 			}
-			else if (musicComp.isPlaying && mPlayedMusic.count(musicComp.componentId) > 0 && mPlayedMusic[musicComp.componentId].getStatus() == sf::Music::Stopped)
+			else if (musicComp.isPlaying && m_playedMusic.count(musicComp.componentId) > 0 && m_playedMusic[musicComp.componentId].getStatus() == sf::Music::Stopped)
 			{
 				//Music finished playing
 				musicComp.isPlaying = false;
-				mPlayedMusic.erase(musicComp.componentId);
+				m_playedMusic.erase(musicComp.componentId);
 			}
 		}
 
 		//Remove finished sounds
-		std::remove_if(mPlayedSounds.begin(), mPlayedSounds.end(), [this](const sf::Sound& sound)
+		std::remove_if(m_playedSounds.begin(), m_playedSounds.end(), [this](const sf::Sound& sound)
 		{
 			return sound.getStatus() == sf::Sound::Stopped;
 		});
@@ -62,7 +55,7 @@ namespace audio
 
 		if (PlaySoundData* data = static_cast<PlaySoundData*>(eventData))
 		{
-			Sound* sound = mSoundLoader.load(data->path);
+			Sound* sound = m_soundLoader.load(data->path);
 
 			//Load if first time playing
 			if (!sound->isLoaded && sound->buffer.loadFromFile(sound->path))
@@ -72,9 +65,9 @@ namespace audio
 
 			if (sound->isLoaded)
 			{
-				mPlayedSounds.push_front(sf::Sound());
-				mPlayedSounds.front().setBuffer(sound->buffer);
-				mPlayedSounds.front().play();
+				m_playedSounds.push_front(sf::Sound());
+				m_playedSounds.front().setBuffer(sound->buffer);
+				m_playedSounds.front().play();
 			}
 		}
 	}

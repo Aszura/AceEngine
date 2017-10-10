@@ -21,3 +21,6 @@ Project/VS2013/Release/
 Project/VS2013/Debug/
 Project/VS2015/Release/
 Binaries/Release/
+*.pdb
+*.idb
+*.ilk

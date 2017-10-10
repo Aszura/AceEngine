@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4c07c83d-0209-4c09-932c-b8cb1fac4ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{220403fe-e392-4262-a7a1-4f4bb00d7393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{5b63a5c3-b674-46f0-a46b-2507de896d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{70470188-2cb1-401f-bcf4-8899c2cce5b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EntityManagement">
+      <UniqueIdentifier>{2898be63-5c13-4250-aae6-971c37145bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManagement">
+      <UniqueIdentifier>{03f96d78-c20a-4e65-926c-8c1a836a758c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventManagement">
+      <UniqueIdentifier>{f8753eb3-353e-4b08-b3e0-d07bf87c6243}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MusicComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CharacterControllerComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CapsuleColliderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CameraComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RenderSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\InputSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CameraSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ComponentSerializer.h">
+      <Filter>EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ComponentWorld.h">
+      <Filter>EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\EntityWorld.h">
+      <Filter>EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CustomTypes.h">
+      <Filter>EntityManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Utilities.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PackedArray.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SpriteData.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Texture.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Sound.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Shader.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SceneLoader.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ResourceLoader.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Material.h">
+      <Filter>ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\EventSystem.h">
+      <Filter>EventManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\EventType.h">
+      <Filter>EventManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\EventData.h">
+      <Filter>EventManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\InputCallback.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\KeyMap.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Window.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Game.h" />
+    <ClInclude Include="..\..\Source\SpriteComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CameraSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\InputSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RenderSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\EntityWorld.cpp">
+      <Filter>EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ComponentSerializer.cpp">
+      <Filter>EntityManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SceneLoader.cpp">
+      <Filter>ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\EventSystem.cpp">
+      <Filter>EventManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Main.cpp" />
+    <ClCompile Include="..\..\Source\Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\Diffuse2D.ps">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Source\Diffuse2D.vs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

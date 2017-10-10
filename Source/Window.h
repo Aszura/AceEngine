@@ -8,21 +8,21 @@ namespace rendering
 	{
 	public:
 		Window(HWND* hWnd, HDC* hDC, HGLRC* hRC)
-			: mHWnd(hWnd)
-			, mHDC(hDC)
-			, mHRC(hRC)
+			: m_hWnd(hWnd)
+			, m_hDC(hDC)
+			, m_hRC(hRC)
 		{}
 
 		void close()
 		{
 			wglMakeCurrent(NULL, NULL);
-			wglDeleteContext(*mHRC);
-			ReleaseDC(*mHWnd, *mHDC);
+			wglDeleteContext(*m_hRC);
+			ReleaseDC(*m_hWnd, *m_hDC);
 		}
 
 		void display()
 		{
-			SwapBuffers(*mHDC);
+			SwapBuffers(*m_hDC);
 		}
 
 		void resize(unsigned int sizeX, unsigned int sizeY)
@@ -33,9 +33,9 @@ namespace rendering
 		void resize(int sizeX, int sizeY)
 		{
 			assert(sizeX >= 0 && sizeY >= 0);
-			mSize.x = sizeX;
-			mSize.y = sizeY;
-			MoveWindow(*mHWnd, mPosition.x, mPosition.y, sizeX, sizeY, true);
+			m_size.x = sizeX;
+			m_size.y = sizeY;
+			MoveWindow(*m_hWnd, m_position.x, m_position.y, sizeX, sizeY, true);
 		}
 
 		void setCursorPos(long posX, long posY)
@@ -52,44 +52,44 @@ namespace rendering
 			POINT pt;
 			pt.x = posX;
 			pt.y = posY;
-			ClientToScreen(*mHWnd, &pt);
+			ClientToScreen(*m_hWnd, &pt);
 			return glm::ivec2(pt.x, pt.y);
 		}
 
 		void setTitle(const std::wstring& title)
 		{
-			SetWindowText(*mHWnd, title.c_str());
+			SetWindowText(*m_hWnd, title.c_str());
 		}
 
 		bool hasFocus()
 		{
-			return *mHWnd == GetFocus();
+			return *m_hWnd == GetFocus();
 		}
 
 		inline const glm::uvec2& getSize() const
 		{
-			return mSize;
+			return m_size;
 		}
 
 		inline HWND* getHWnd()
 		{
-			return mHWnd;
+			return m_hWnd;
 		}
 
 		inline HDC* getHDC()
 		{
-			return mHDC;
+			return m_hDC;
 		}
 
 		inline HGLRC* getHRC()
 		{
-			return mHRC;
+			return m_hRC;
 		}
 	private:
-		glm::ivec2 mPosition;
-		glm::uvec2 mSize;
-		HWND* mHWnd;
-		HDC* mHDC;
-		HGLRC* mHRC;
+		glm::ivec2 m_position;
+		glm::uvec2 m_size;
+		HWND* m_hWnd;
+		HDC* m_hDC;
+		HGLRC* m_hRC;
 	};
 }

@@ -4,14 +4,14 @@
 
 namespace events
 {
-	std::map<EventType, std::function<void(EventData*)>> EventSystem::mListenerDict;
+	std::map<EventType, std::function<void(EventData*)>> EventSystem::m_listenerDict;
 
 	//Fire event immediatly
 	void EventSystem::fireEvent(EventType type, EventData* eventData)
 	{
-		if (mListenerDict.find(type) != mListenerDict.end())
+		if (m_listenerDict.find(type) != m_listenerDict.end())
 		{
-			mListenerDict[type](eventData);
+			m_listenerDict[type](eventData);
 		}
 
 		delete eventData;
@@ -20,13 +20,13 @@ namespace events
 	//Register listener for Event class
 	void EventSystem::registerListener(EventType type, std::function<void(EventData*)> listener)
 	{
-		mListenerDict[type] = listener;
+		m_listenerDict[type] = listener;
 	}
 
 	//Remove listener
 	void EventSystem::removeListener(EventType type)
 	{
-		mListenerDict.erase(type);
+		m_listenerDict.erase(type);
 	}
 }
 

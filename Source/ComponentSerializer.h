@@ -24,7 +24,7 @@ namespace component
 		class ComponentSerializer
 		{
 		public:
-			ComponentSerializer(EntityWorld* entityWorld, utility::ResourceLoader<rendering::Texture>* textureLoader, utility::ResourceLoader<rendering::Shader>* shaderLoader);
+			ComponentSerializer(EntityWorld& entityWorld, utility::ResourceLoader<rendering::Texture>& textureLoader, utility::ResourceLoader<rendering::Shader>& shaderLoader);
 
 			void deserialize(const std::string typeName, std::unordered_map<std::string, std::string>& members);
 		private:
@@ -33,10 +33,10 @@ namespace component
 			{
 				T result;
 
-				mStrStream << text;
-				mStrStream >> result;
-				mStrStream.clear();
-				mStrStream.str("");
+				m_strStream << text;
+				m_strStream >> result;
+				m_strStream.clear();
+				m_strStream.str("");
 
 				return result;
 			}
@@ -46,20 +46,20 @@ namespace component
 			{
 				if (members.count(memberName) > 0)
 				{
-					mStrStream << members[memberName];
-					mStrStream >> targetMember;
-					mStrStream.clear();
-					mStrStream.str("");
+					m_strStream << members[memberName];
+					m_strStream >> targetMember;
+					m_strStream.clear();
+					m_strStream.str("");
 					return true;
 				}
 
 				return false;
 			}
 
-			std::stringstream								mStrStream;
-			EntityWorld*									mEntityWorld;
-			utility::ResourceLoader<rendering::Texture>*	mTextureLoader;
-			utility::ResourceLoader<rendering::Shader>*		mShaderLoader;
+			std::stringstream								m_strStream;
+			EntityWorld&									m_entityWorld;
+			utility::ResourceLoader<rendering::Texture>&	m_textureLoader;
+			utility::ResourceLoader<rendering::Shader>&		m_shaderLoader;
 		};
 	}
 }

@@ -7,14 +7,8 @@
 
 namespace rendering
 {
-	CameraSystem::CameraSystem(component::EntityWorld* entityWorld)
-		: mEntityWorld(entityWorld)
-	{
-		assert(entityWorld);
-	}
-
-
-	CameraSystem::~CameraSystem()
+	CameraSystem::CameraSystem(component::EntityWorld& entityWorld)
+		: m_entityWorld(entityWorld)
 	{
 	}
 
@@ -32,50 +26,48 @@ namespace rendering
 		const float jumpForce = 35.0f;
 
 
-		if (mEntityWorld->getCameraWorld().getArray().length() > 0)
+		if (m_entityWorld.getCameraWorld().getArray().length() > 0)
 		{
-			CameraComponent& cameraComp = *mEntityWorld->getCameraWorld().getArray().begin();
-			PlayerComponent* playerComp = &*mEntityWorld->getPlayerWorld().getArray().begin();
-			assert(playerComp);
-			TransformComponent* cameraTransform = mEntityWorld->getTransformWorld().getFirst(cameraComp.entityId);
+			CameraComponent& cameraComp = *m_entityWorld.getCameraWorld().getArray().begin();
+			TransformComponent* cameraTransform = m_entityWorld.getTransformWorld().getFirst(cameraComp.entityId);
 			assert(cameraTransform);
-			CharacterControllerComponent* charControllerComp = mEntityWorld->getCharacterControllerWorld().getFirst(cameraComp.entityId);
+			CharacterControllerComponent* charControllerComp = m_entityWorld.getCharacterControllerWorld().getFirst(cameraComp.entityId);
 			assert(charControllerComp);
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Up) || InputSystem::isKeyDown(KeyMap::vk_W))
 			{
-				mMovementAxis.y -= 1;
+				m_movementAxis.y -= 1;
 			}
 			if (InputSystem::isKeyUp(KeyMap::vk_Up) || InputSystem::isKeyUp(KeyMap::vk_W))
 			{
-				mMovementAxis.y += 1;
+				m_movementAxis.y += 1;
 			}
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Left) || InputSystem::isKeyDown(KeyMap::vk_A))
 			{
-				mMovementAxis.x -= 1;
+				m_movementAxis.x -= 1;
 			}
 			if (InputSystem::isKeyUp(KeyMap::vk_Left) || InputSystem::isKeyUp(KeyMap::vk_A))
 			{
-				mMovementAxis.x += 1;
+				m_movementAxis.x += 1;
 			}
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Down) || InputSystem::isKeyDown(KeyMap::vk_S))
 			{
-				mMovementAxis.y += 1;
+				m_movementAxis.y += 1;
 			}
 			if (InputSystem::isKeyUp(KeyMap::vk_Down) || InputSystem::isKeyUp(KeyMap::vk_S))
 			{
-				mMovementAxis.y -= 1;
+				m_movementAxis.y -= 1;
 			}
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Right) || InputSystem::isKeyDown(KeyMap::vk_D))
 			{
-				mMovementAxis.x += 1;
+				m_movementAxis.x += 1;
 			}
 			if (InputSystem::isKeyUp(KeyMap::vk_Right) || InputSystem::isKeyUp(KeyMap::vk_D))
 			{
-				mMovementAxis.x -= 1;
+				m_movementAxis.x -= 1;
 			}
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Space) && charControllerComp->isOnGround)
@@ -93,9 +85,9 @@ namespace rendering
 				int a = 0;
 			}
 
-			if (mMovementAxis.x != 0 || mMovementAxis.y != 0)
+			if (m_movementAxis.x != 0 || m_movementAxis.y != 0)
 			{
-				glm::vec3 movement = glm::vec3(playerSpeed * deltaTime * -mMovementAxis.x, 0.0f, playerSpeed * deltaTime * -mMovementAxis.y);
+				glm::vec3 movement = glm::vec3(playerSpeed * deltaTime * -m_movementAxis.x, 0.0f, playerSpeed * deltaTime * -m_movementAxis.y);
 
 				// --------------------
 				//glm::vec3 forward = cameraTransform.rotation * glm::vec3(0, 0, 1);

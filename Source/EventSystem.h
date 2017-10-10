@@ -17,6 +17,6 @@ namespace events
 		static void removeListener(EventType type);
 
 	private:
-		static std::map<EventType, std::function<void(EventData*)>> mListenerDict;
+		static std::map<EventType, std::function<void(EventData*)>> m_listenerDict;
 	};
 }

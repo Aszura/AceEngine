@@ -10,12 +10,12 @@ namespace utility
 	public:
 		inline std::vector<T*>& getUnitializedResources()
 		{
-			return mUnitializedResources;
+			return m_unitializedResources;
 		}
 
 		inline std::unordered_map<std::string, T>& getResources()
 		{
-			return mResources;
+			return m_resources;
 		}
 
 		T* load(std::string resourcePath)
@@ -25,20 +25,20 @@ namespace utility
 				resourcePath.erase(resourcePath.begin(), resourcePath.begin() + 1);
 			}
 
-			if (mResources.find(resourcePath) != mResources.end())
+			if (m_resources.find(resourcePath) != m_resources.end())
 			{
-				return &mResources[resourcePath];
+				return &m_resources[resourcePath];
 			}
 			else
 			{
-				mResources[resourcePath] = T();
-				mResources[resourcePath].path = resourcePath;
-				mUnitializedResources.push_back(&mResources[resourcePath]);
-				return &mResources[resourcePath];
+				m_resources[resourcePath] = T();
+				m_resources[resourcePath].path = resourcePath;
+				m_unitializedResources.push_back(&m_resources[resourcePath]);
+				return &m_resources[resourcePath];
 			}
 		}
 	private:
-		std::unordered_map<std::string, T>	mResources;
-		std::vector<T*>						mUnitializedResources;
+		std::unordered_map<std::string, T>	m_resources;
+		std::vector<T*>						m_unitializedResources;
 	};
 }

@@ -11,17 +11,17 @@ namespace component
 	{
 	public:
 		ComponentWorld(size_t elementCount)
-			: mComponents(elementCount)
+			: m_components(elementCount)
 		{}
 
 		inline utility::PackedArray<T>& getArray()
 		{
-			return mComponents;
+			return m_components;
 		}
 
 		inline T* get(ElementId componentId)
 		{
-			return mComponents.lookup(componentId);
+			return m_components.lookup(componentId);
 		}
 
 		inline T* getFirst(EntityId id)
@@ -30,7 +30,7 @@ namespace component
 
 			if (exist(id))
 			{
-				return mComponents.lookup(mEntities[id][0]);
+				return m_components.lookup(m_entities[id][0]);
 			}
 			else
 			{
@@ -40,34 +40,34 @@ namespace component
 
 		inline T* add(EntityId id)
 		{
-			ElementId elemId = mComponents.add();
+			ElementId elemId = m_components.add();
 
-			T* component = mComponents.lookup(elemId);
+			T* component = m_components.lookup(elemId);
 			component->entityId = id;
 			component->componentId = elemId;
-			mEntities[id].push_back(elemId);
+			m_entities[id].push_back(elemId);
 
 			return component;
 		}
 
 		inline void remove(EntityId entityId, ElementId componentId)
 		{
-			mComponents.remove(componentId);
-			mEntities[entityId].erase(componentId);
+			m_components.remove(componentId);
+			m_entities[entityId].erase(componentId);
 
-			if (mEntities.count(entityId) == 0)
+			if (m_entities.count(entityId) == 0)
 			{
-				mEntities.erase(entityId);
+				m_entities.erase(entityId);
 			}
 		}
 
 		inline bool exist(EntityId id)
 		{
-			return mEntities.count(id) > 0;
+			return m_entities.count(id) > 0;
 		}
 
 	private:
-		std::map<EntityId, std::vector<ElementId>> mEntities;
-		utility::PackedArray<T> mComponents;
+		std::map<EntityId, std::vector<ElementId>> m_entities;
+		utility::PackedArray<T> m_components;
 	};
 }

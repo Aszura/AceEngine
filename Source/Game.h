@@ -3,29 +3,20 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "ResourceLoader.h"
+#include "SceneLoader.h"
 #include "InputCallback.h"
 
+#include "InputSystem.h"
+#include "CameraSystem.h"
+#include "AudioSystem.h"
+#include "RenderSystem.h"
 
-namespace input
-{
-	class InputSystem;
-}
+#include <memory>
 
-namespace physics
-{
-	class PhysicsSystem;
-}
 
 namespace rendering
 {
-	class CameraSystem;
-	class RenderSystem;
 	class Window;
-}
-
-namespace audio
-{
-	class AudioSystem;
 }
 
 namespace component
@@ -41,24 +32,21 @@ namespace game
 	class Game
 	{
 	public:
-		Game(rendering::Window* windowData, const input::InputCallback& inputCallback);
-		~Game();
+		Game(rendering::Window& windowData, const input::InputCallback& inputCallback);
 
 		void start();
 		void run();
 		void stop();
 
 	private:
-		component::EntityWorld							mEntityWorld;
-		utility::ResourceLoader<rendering::Texture>		mTextureLoader;
-		utility::ResourceLoader<rendering::Shader>		mShaderLoader;
-		component::serialization::SceneLoader*			mSceneLoader;
-		input::InputSystem*								mInputSystem;
-		rendering::CameraSystem*						mCameraSystem;
-		physics::PhysicsSystem*							mPhysicsSystem;
-		audio::AudioSystem*								mAudioSystem;
-		rendering::RenderSystem*						mRenderSystem;
-
-		rendering::Window*								mWindowData;
+		component::EntityWorld							m_entityWorld;
+		utility::ResourceLoader<rendering::Texture>		m_textureLoader;
+		utility::ResourceLoader<rendering::Shader>		m_shaderLoader;
+		component::serialization::SceneLoader			m_sceneLoader;
+		input::InputSystem								m_inputSystem;
+		rendering::CameraSystem							m_cameraSystem;
+		audio::AudioSystem								m_audioSystem;
+		rendering::RenderSystem							m_renderSystem;
+		rendering::Window&								m_windowData;
 	};
 }

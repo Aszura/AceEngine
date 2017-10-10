@@ -16,14 +16,11 @@ namespace component
 {
 	namespace serialization
 	{
-		SceneLoader::SceneLoader(EntityWorld* entityWorld, utility::ResourceLoader<rendering::Texture>* textureLoader, utility::ResourceLoader<rendering::Shader>* shaderLoader)
-			: mEntityWorld(entityWorld)
-			, mTextureLoader(textureLoader)
-			, mShaderLoader(shaderLoader)
+		SceneLoader::SceneLoader(EntityWorld& entityWorld, utility::ResourceLoader<rendering::Texture>& textureLoader, utility::ResourceLoader<rendering::Shader>& shaderLoader)
+			: m_entityWorld(entityWorld)
+			, m_textureLoader(textureLoader)
+			, m_shaderLoader(shaderLoader)
 		{
-			assert(entityWorld);
-			assert(textureLoader);
-			assert(shaderLoader);
 		}
 
 		SceneLoader::~SceneLoader()
@@ -47,7 +44,7 @@ namespace component
 			doc->parse<0>(&sceneText[0]);
 
 			//Load components
-			ComponentSerializer serializer = ComponentSerializer(mEntityWorld, mTextureLoader, mShaderLoader);
+			ComponentSerializer serializer = ComponentSerializer(m_entityWorld, m_textureLoader, m_shaderLoader);
 			xml_node<>* componentParentNode = doc->first_node("Components");
 
 			for (xml_node<>* node = componentParentNode->first_node(); node != nullptr; node = node->next_sibling())
@@ -62,38 +59,8 @@ namespace component
 				serializer.deserialize(node->name(), data);
 			}
 
-			//Load models
-			xml_node<>* modelsParentNode = doc->first_node("Models");
-
-			for (xml_node<>* node = modelsParentNode->first_node(); node != nullptr; node = node->next_sibling())
-			{
-				std::unordered_map<std::string, std::string> data;
-
-				for (xml_attribute<>* attribute = node->first_attribute(); attribute != nullptr; attribute = attribute->next_attribute())
-				{
-					data[attribute->name()] = attribute->value();
-				}
-
-				EntityId entityId;
-				std::stringstream strStream;
-				strStream << data["entityId"];
-				strStream >> entityId;
-
-				component::MeshComponent* meshComponent = mEntityWorld->getMeshWorld().add(entityId);
-				assert(meshComponent);
-
-				meshComponent->material = new rendering::Material();
-				meshComponent->material->shader = mShaderLoader->load(data["shader"]);
-
-				if (data.count("materialTexture") > 0)
-				{
-					MeshComponent* meshComp = mEntityWorld->getMeshWorld().getFirst(entityId);
-					meshComp->material->texture = mTextureLoader->load(data["materialTexture"]);
-				}
-			}
-
 			delete doc;
-			mCurrentScene = filePath;
+			m_currentScene = filePath;
 
 			return true;
 		}

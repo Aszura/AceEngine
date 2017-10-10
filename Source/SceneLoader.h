@@ -22,15 +22,15 @@ namespace component
 		class SceneLoader
 		{
 		public:
-			SceneLoader(EntityWorld* entityWorld, utility::ResourceLoader<rendering::Texture>* textureLoader, utility::ResourceLoader<rendering::Shader>* shaderLoader);
+			SceneLoader(EntityWorld& entityWorld, utility::ResourceLoader<rendering::Texture>& textureLoader, utility::ResourceLoader<rendering::Shader>& shaderLoader);
 			~SceneLoader();
 
 			bool loadScene(const std::string& filePath);
 		private:
-			std::string										mCurrentScene;
-			EntityWorld*									mEntityWorld;
-			utility::ResourceLoader<rendering::Texture>*	mTextureLoader;
-			utility::ResourceLoader<rendering::Shader>*		mShaderLoader;
+			std::string										m_currentScene;
+			EntityWorld&									m_entityWorld;
+			utility::ResourceLoader<rendering::Texture>&	m_textureLoader;
+			utility::ResourceLoader<rendering::Shader>&		m_shaderLoader;
 		};
 	}
 }

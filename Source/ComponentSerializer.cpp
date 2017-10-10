@@ -9,14 +9,11 @@ namespace component
 {
 	namespace serialization
 	{
-		ComponentSerializer::ComponentSerializer(EntityWorld* entityWorld, utility::ResourceLoader<rendering::Texture>* textureLoader, utility::ResourceLoader<rendering::Shader>* shaderLoader)
-			: mEntityWorld(entityWorld)
-			, mTextureLoader(textureLoader)
-			, mShaderLoader(shaderLoader)
+		ComponentSerializer::ComponentSerializer(EntityWorld& entityWorld, utility::ResourceLoader<rendering::Texture>& textureLoader, utility::ResourceLoader<rendering::Shader>& shaderLoader)
+			: m_entityWorld(entityWorld)
+			, m_textureLoader(textureLoader)
+			, m_shaderLoader(shaderLoader)
 		{
-			assert(entityWorld);
-			assert(textureLoader);
-			assert(shaderLoader);
 		}
 
 		void ComponentSerializer::deserialize(const std::string typeName, std::unordered_map<std::string, std::string>& members)
@@ -26,7 +23,8 @@ namespace component
 
 			if (typeName == "TransformComponent")
 			{
-				TransformComponent* transformComp = mEntityWorld->getTransformWorld().add(entityId);
+				TransformComponent* transformComp = m_entityWorld.getTransformWorld().add(entityId);
+				assert(transformComp != nullptr);
 
 				loadValue(members, "positionX", transformComp->position.x);
 				loadValue(members, "positionY", transformComp->position.y);
@@ -41,9 +39,18 @@ namespace component
 				loadValue(members, "scaleY", transformComp->scale.y);
 				loadValue(members, "scaleZ", transformComp->scale.z);
 			}
+			else if (typeName == "SpriteComponent")
+			{
+				SpriteComponent* spriteComp = m_entityWorld.getSpriteWorld().add(entityId);
+				assert(spriteComp != nullptr);
+
+				loadValue(members, "shader", spriteComp->shaderPath);
+				loadValue(members, "materialTexture", spriteComp->texturePath);
+			}
 			else if (typeName == "CameraComponent")
 			{
-				CameraComponent* cameraComp = mEntityWorld->getCameraWorld().add(entityId);
+				CameraComponent* cameraComp = m_entityWorld.getCameraWorld().add(entityId);
+				assert(cameraComp != nullptr);
 
 				loadValue(members, "directionX", cameraComp->direction.x);
 				loadValue(members, "directionY", cameraComp->direction.y);
@@ -70,7 +77,8 @@ namespace component
 			}
 			else if (typeName == "CapsuleColliderComponent")
 			{
-				CapsuleColliderComponent* capsuleComp = mEntityWorld->getCapsuleColliderWorld().add(entityId);
+				CapsuleColliderComponent* capsuleComp = m_entityWorld.getCapsuleColliderWorld().add(entityId);
+				assert(capsuleComp != nullptr);
 
 				loadValue(members, "height", capsuleComp->height);
 				loadValue(members, "radius", capsuleComp->radius);
@@ -78,7 +86,8 @@ namespace component
 			}
 			else if (typeName == "CharacterControllerComponent")
 			{
-				CharacterControllerComponent* characterComp = mEntityWorld->getCharacterControllerWorld().add(entityId);
+				CharacterControllerComponent* characterComp = m_entityWorld.getCharacterControllerWorld().add(entityId);
+				assert(characterComp != nullptr);
 
 				loadValue(members, "height", characterComp->height);
 				loadValue(members, "radius", characterComp->radius);
@@ -86,19 +95,12 @@ namespace component
 			}
 			else if (typeName == "MusicComponent")
 			{
-				MusicComponent* musicComp = mEntityWorld->getMusicWorld().add(entityId);
+				MusicComponent* musicComp = m_entityWorld.getMusicWorld().add(entityId);
+				assert(musicComp != nullptr);
 
 				loadValue(members, "isLooping", musicComp->isLooping);
 				loadValue(members, "isPlaying", musicComp->isPlaying);
 				loadValue(members, "filePath", musicComp->filePath);
-			}
-			else if (typeName == "PlayerComponent")
-			{
-				mEntityWorld->getPlayerWorld().add(entityId);
-			}
-			else if (typeName == "RigidbodyComponent")
-			{
-				mEntityWorld->getRigidbodyWorld().add(entityId);
 			}
 		}
 	}

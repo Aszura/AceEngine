@@ -22,6 +22,8 @@ namespace input
 	{
 	public:
 		InputSystem(const InputCallback& inputCallback);
+		~InputSystem() = default;
+
 		void update();
 
 		static bool isMouseButtonDown(KeyMap button);
@@ -36,13 +38,13 @@ namespace input
 
 		void onWindowCreated(events::EventData* eventData);
 	private:
-		static std::bitset<static_cast<size_t>(KeyMap::size)> mKeys;
-		static std::bitset<static_cast<size_t>(KeyMap::size)> mLastKeys;
-		static std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> mMouseButtons;
-		static std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> mLastMouseButtons;
-		static glm::ivec2 mMousePosition;
-		static glm::ivec2 mMouseDelta;
-		rendering::Window* mWindow;
-		const InputCallback& mInputCallback;
+		static std::bitset<static_cast<size_t>(KeyMap::size)> m_keys;
+		static std::bitset<static_cast<size_t>(KeyMap::size)> m_lastKeys;
+		static std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> m_mouseButtons;
+		static std::bitset<static_cast<size_t>(KeyMap::startKeyboard)> m_lastMouseButtons;
+		static glm::ivec2 m_mousePosition;
+		static glm::ivec2 m_mouseDelta;
+		rendering::Window* m_window;
+		const InputCallback& m_inputCallback;
 	};
 }

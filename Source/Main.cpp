@@ -5,6 +5,7 @@
 #include <gl/gl.h>
 #include <string>
 #include <atlstr.h>
+#include <shellapi.h>
 
 #include "InputCallback.h"
 #include "Window.h"
@@ -70,7 +71,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	rendering::Window windowData (&hWnd, &hDC, &hRC);
 
 	// create player for game
-	game::Game* game = new game::Game(&windowData, inputCallback);
+	game::Game* game = new game::Game(windowData, inputCallback);
 	game->start();
 
 	// program main loop

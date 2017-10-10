@@ -24,7 +24,7 @@ namespace rendering
 	class RenderSystem
 	{
 	public:
-		RenderSystem(component::EntityWorld* entityWorld, utility::ResourceLoader<Texture>* textureLoader, utility::ResourceLoader<Shader>* shaderLoader, Window* windowData);
+		RenderSystem(component::EntityWorld& entityWorld, utility::ResourceLoader<Texture>& textureLoader, utility::ResourceLoader<Shader>& shaderLoader, Window& windowData);
 		~RenderSystem();
 
 		void start(unsigned int screenSizeX, unsigned int screenSizeY);
@@ -60,19 +60,19 @@ namespace rendering
 		void updateStaticBuffer();
 		void renderMeshes();
 
-		glm::uvec2						mScreenSize;
-		component::EntityWorld*					mEntityWorld;
-		Window*							mWindowData;
+		glm::uvec2						m_screenSize;
+		component::EntityWorld&					m_entityWorld;
+		Window&							m_windowData;
 		//sf::RenderWindow*				mWindow;
-		utility::ResourceLoader<Texture>*		mTextureLoader; 
-		utility::ResourceLoader<Shader>*			mShaderLoader;
-		StaticBuffer					mStaticBuffer;
-		DynamicBuffer					mDynamicBuffer;
-		GLuint							mStaticUbo;
-		GLuint							mDynamicUbo;
-		GLuint							mVao;
-		GLuint							mQuadVbo;
-		GLuint							mDrawVbo;
+		utility::ResourceLoader<Texture>&		m_textureLoader; 
+		utility::ResourceLoader<Shader>&			m_shaderLoader;
+		StaticBuffer					m_staticBuffer;
+		DynamicBuffer					m_dynamicBuffer;
+		GLuint							m_staticUbo;
+		GLuint							m_dynamicUbo;
+		GLuint							m_vao;
+		GLuint							m_quadVbo;
+		GLuint							m_drawVbo;
 
 		static const int			staticUboIndex = 1;
 		static const int			dynamicUboIndex = 2;

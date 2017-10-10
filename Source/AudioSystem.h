@@ -23,18 +23,18 @@ namespace audio
 	class AudioSystem
 	{
 	public:
-		AudioSystem(component::EntityWorld* entityWorld);
-		~AudioSystem();
+		AudioSystem(component::EntityWorld& entityWorld);
+		~AudioSystem() = default;
 
 		void start();
 		void update(float deltaTime);
 	private:
 		void onPlaySound(events::EventData* eventData);
 
-		utility::ResourceLoader<Sound>				mSoundLoader;
-		glm::ivec2									mMovementAxis;
-		component::EntityWorld*						mEntityWorld;
-		std::forward_list<sf::Sound>				mPlayedSounds;
-		std::map<component::ElementId, sf::Music>	mPlayedMusic;
+		utility::ResourceLoader<Sound>				m_soundLoader;
+		glm::ivec2									m_movementAxis;
+		component::EntityWorld&						m_entityWorld;
+		std::forward_list<sf::Sound>				m_playedSounds;
+		std::map<component::ElementId, sf::Music>	m_playedMusic;
 	};
 }
