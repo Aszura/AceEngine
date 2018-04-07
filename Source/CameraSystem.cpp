@@ -31,8 +31,6 @@ namespace rendering
 			CameraComponent& cameraComp = *m_entityWorld.getCameraWorld().getArray().begin();
 			TransformComponent* cameraTransform = m_entityWorld.getTransformWorld().getFirst(cameraComp.entityId);
 			assert(cameraTransform);
-			CharacterControllerComponent* charControllerComp = m_entityWorld.getCharacterControllerWorld().getFirst(cameraComp.entityId);
-			assert(charControllerComp);
 
 			if (InputSystem::isKeyDown(KeyMap::vk_Up) || InputSystem::isKeyDown(KeyMap::vk_W))
 			{
@@ -70,14 +68,12 @@ namespace rendering
 				m_movementAxis.x -= 1;
 			}
 
-			if (InputSystem::isKeyDown(KeyMap::vk_Space) && charControllerComp->isOnGround)
+			if (InputSystem::isKeyDown(KeyMap::vk_Space))
 			{
-				charControllerComp->force += glm::vec3(0.0f, jumpForce, 0.0f);
-
 				using namespace events;
 				PlaySoundData* data = new PlaySoundData();
 				data->path = "Media/Audio/slap.wav";
-				EventSystem::fireEvent(EventType::PlaySound, data);
+				EventSystem::fireEvent("PlaySound", data);
 			}
 
 			if (InputSystem::isKeyUp(KeyMap::vk_P))

@@ -30,12 +30,6 @@
     <ClInclude Include="..\..\Source\MusicComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CharacterControllerComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CapsuleColliderComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\CameraComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -93,9 +87,6 @@
     <ClInclude Include="..\..\Source\EventSystem.h">
       <Filter>EventManagement</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\EventType.h">
-      <Filter>EventManagement</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\EventData.h">
       <Filter>EventManagement</Filter>
     </ClInclude>
@@ -112,6 +103,7 @@
     <ClInclude Include="..\..\Source\SpriteComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\AceEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioSystem.cpp">
@@ -126,9 +118,6 @@
     <ClCompile Include="..\..\Source\RenderSystem.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\EntityWorld.cpp">
-      <Filter>EntityManagement</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\ComponentSerializer.cpp">
       <Filter>EntityManagement</Filter>
     </ClCompile>
@@ -138,8 +127,8 @@
     <ClCompile Include="..\..\Source\EventSystem.cpp">
       <Filter>EventManagement</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Main.cpp" />
     <ClCompile Include="..\..\Source\Game.cpp" />
+    <ClCompile Include="..\..\Source\AceEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Diffuse2D.ps">

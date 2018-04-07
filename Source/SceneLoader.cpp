@@ -32,6 +32,12 @@ namespace component
 			using namespace rapidxml;
 
 			std::ifstream fileStream(filePath);
+
+			if (!fileStream.good())
+			{
+				return false;
+			}
+			  
 			std::string sceneText; //Make sure memory is located on heap to avoid stack overflow
 
 			fileStream.seekg(0, std::ios::end);

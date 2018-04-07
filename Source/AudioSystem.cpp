@@ -10,7 +10,7 @@ namespace audio
 		: m_entityWorld(entityWorld)
 	{
 		using namespace events;
-		EventSystem::registerListener(EventType::PlaySound, [this](EventData* eventData) { onPlaySound(eventData); });
+		EventSystem::registerListener("PlaySound", [this](EventData* eventData) { onPlaySound(eventData); });
 	}
 
 	void AudioSystem::start()

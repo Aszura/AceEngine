@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "InputSystem.h"
 #include "CameraSystem.h"
-#include "PhysicsSystem.h"
 #include "AudioSystem.h"
 #include "RenderSystem.h"
 #include "SceneLoader.h"
@@ -16,7 +15,6 @@ namespace game
 {
 	using namespace input;
 	using namespace rendering;
-	using namespace physics;
 	using namespace audio;
 	using namespace component::serialization;
 
@@ -33,7 +31,8 @@ namespace game
 
 	void Game::start()
 	{
-		m_sceneLoader.loadScene("Scenes/scene1.xml");
+		bool result = m_sceneLoader.loadScene("Scenes/scene1.xml");
+		assert(result);
 
 		m_renderSystem.start(800, 600);
 		m_audioSystem.start();

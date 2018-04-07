@@ -5,7 +5,5 @@
 	<TransformComponent entityId="1" />
 	<MusicComponent entityId="3" isPlaying="1" filePath="Media/Audio/wind.ogg" />
 	<TransformComponent entityId="6" />
+	<SpriteComponent entityId="6" shader="Diffuse2D" materialTexture="Media/Textures/gradient.png" />
 </Components>
-<Models>
-	<Model entityId="6" shader="Diffuse2D" materialTexture="Media/Textures/tree1.png" />
-</Models>

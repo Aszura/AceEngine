@@ -1,6 +1,5 @@
 #include "InputSystem.h"
 #include "EventSystem.h"
-#include "EventType.h"
 #include "EventData.h"
 #include "Window.h"
 #include <functional>
@@ -19,7 +18,7 @@ namespace input
 		, m_inputCallback(inputCallback)
 	{
 		using namespace events;
-		EventSystem::registerListener(EventType::WindowCreated, [this](EventData* eventData){ onWindowCreated(eventData); });
+		EventSystem::registerListener("WindowCreated", [this](EventData* eventData){ onWindowCreated(eventData); });
 	}
 
 	void InputSystem::update()
@@ -43,7 +42,7 @@ namespace input
 			events::MouseMovedData* eventData = new events::MouseMovedData();
 			eventData->mousePosition.x = m_mouseDelta.x;
 			eventData->mousePosition.y = m_mouseDelta.y;
-			events::EventSystem::fireEvent(events::EventType::MouseMoved, eventData);
+			events::EventSystem::fireEvent("MouseMoved", eventData);
 		}
 
 		//Reset mouse to center of screen

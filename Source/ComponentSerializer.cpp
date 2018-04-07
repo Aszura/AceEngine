@@ -14,15 +14,7 @@ namespace component
 			, m_textureLoader(textureLoader)
 			, m_shaderLoader(shaderLoader)
 		{
-		}
-
-		void ComponentSerializer::deserialize(const std::string typeName, std::unordered_map<std::string, std::string>& members)
-		{
-			assert(members.count("entityId") > 0);
-			EntityId entityId = extractValue<EntityId>(members["entityId"]);
-
-			if (typeName == "TransformComponent")
-			{
+			addDeserializer("TransformComponent", [this](EntityId entityId, std::unordered_map<std::string, std::string>& members) {
 				TransformComponent* transformComp = m_entityWorld.getTransformWorld().add(entityId);
 				assert(transformComp != nullptr);
 
@@ -38,17 +30,17 @@ namespace component
 				loadValue(members, "scaleX", transformComp->scale.x);
 				loadValue(members, "scaleY", transformComp->scale.y);
 				loadValue(members, "scaleZ", transformComp->scale.z);
-			}
-			else if (typeName == "SpriteComponent")
-			{
+			});
+
+			addDeserializer("SpriteComponent", [this](EntityId entityId, std::unordered_map<std::string, std::string>& members) {
 				SpriteComponent* spriteComp = m_entityWorld.getSpriteWorld().add(entityId);
 				assert(spriteComp != nullptr);
 
 				loadValue(members, "shader", spriteComp->shaderPath);
 				loadValue(members, "materialTexture", spriteComp->texturePath);
-			}
-			else if (typeName == "CameraComponent")
-			{
+			});
+
+			addDeserializer("CameraComponent", [this](EntityId entityId, std::unordered_map<std::string, std::string>& members) {
 				CameraComponent* cameraComp = m_entityWorld.getCameraWorld().add(entityId);
 				assert(cameraComp != nullptr);
 
@@ -74,34 +66,29 @@ namespace component
 				loadValue(members, "roll", cameraComp->roll);
 				loadValue(members, "zFar", cameraComp->zFar);
 				loadValue(members, "zNear", cameraComp->zNear);
-			}
-			else if (typeName == "CapsuleColliderComponent")
-			{
-				CapsuleColliderComponent* capsuleComp = m_entityWorld.getCapsuleColliderWorld().add(entityId);
-				assert(capsuleComp != nullptr);
+			});
 
-				loadValue(members, "height", capsuleComp->height);
-				loadValue(members, "radius", capsuleComp->radius);
-				loadValue(members, "isDynamic", capsuleComp->isDynamic);
-			}
-			else if (typeName == "CharacterControllerComponent")
-			{
-				CharacterControllerComponent* characterComp = m_entityWorld.getCharacterControllerWorld().add(entityId);
-				assert(characterComp != nullptr);
-
-				loadValue(members, "height", characterComp->height);
-				loadValue(members, "radius", characterComp->radius);
-				loadValue(members, "slopeLimit", characterComp->slopeLimit);
-			}
-			else if (typeName == "MusicComponent")
-			{
+			addDeserializer("MusicComponent", [this](EntityId entityId, std::unordered_map<std::string, std::string>& members) {
 				MusicComponent* musicComp = m_entityWorld.getMusicWorld().add(entityId);
 				assert(musicComp != nullptr);
 
 				loadValue(members, "isLooping", musicComp->isLooping);
 				loadValue(members, "isPlaying", musicComp->isPlaying);
 				loadValue(members, "filePath", musicComp->filePath);
-			}
+			});
+		}
+
+		void ComponentSerializer::deserialize(const std::string typeName, std::unordered_map<std::string, std::string>& members)
+		{
+			assert(members.count("entityId") > 0);
+			EntityId entityId = extractValue<EntityId>(members["entityId"]);
+
+			m_deserializers[typeName](entityId, members);
+		}
+
+		void ComponentSerializer::addDeserializer(const std::string& typeName, std::function<void(EntityId, std::unordered_map<std::string, std::string>&)> deserializationFunction)
+		{
+			m_deserializers[typeName] = deserializationFunction;
 		}
 	}
 }

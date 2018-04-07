@@ -68,7 +68,7 @@ namespace rendering
 			using namespace events;
 			WindowCreatedData* eventData = new WindowCreatedData();
 			eventData->window = &m_windowData;
-			EventSystem::fireEvent(EventType::WindowCreated, eventData);
+			EventSystem::fireEvent("WindowCreated", eventData);
 		}
 
 		glEnable(GL_CULL_FACE);
@@ -79,6 +79,7 @@ namespace rendering
 		glViewport(0, 0, m_screenSize.x, m_screenSize.y);
 
 		//Set camera viewport
+		assert(m_entityWorld.getCameraWorld().getArray().begin() != m_entityWorld.getCameraWorld().getArray().end());
 		component::CameraComponent& cameraComp = *m_entityWorld.getCameraWorld().getArray().begin();
 		cameraComp.viewportSize = m_screenSize;
 
@@ -110,7 +111,7 @@ namespace rendering
 		if ((frameTimeCounter += deltaTime) > 1)
 		{
 			std::wostringstream ss;
-			ss << L"Settle Town - FPS: " << frames;
+			ss << L"Ace Engine - FPS: " << frames;
 			m_windowData.setTitle(ss.str());
 			frames = 0;
 			frameTimeCounter = 0.0;

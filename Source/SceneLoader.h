@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ApiExports.h"
+
 #include <string>
 
 namespace rendering
@@ -25,7 +27,7 @@ namespace component
 			SceneLoader(EntityWorld& entityWorld, utility::ResourceLoader<rendering::Texture>& textureLoader, utility::ResourceLoader<rendering::Shader>& shaderLoader);
 			~SceneLoader();
 
-			bool loadScene(const std::string& filePath);
+			ACE_ENGINE_API bool loadScene(const std::string& filePath);
 		private:
 			std::string										m_currentScene;
 			EntityWorld&									m_entityWorld;
