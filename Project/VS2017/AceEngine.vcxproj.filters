@@ -104,6 +104,12 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AceEngine.h" />
+    <ClInclude Include="..\..\Source\ScriptSystem.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ScriptComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioSystem.cpp">
@@ -129,6 +135,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Game.cpp" />
     <ClCompile Include="..\..\Source\AceEngine.cpp" />
+    <ClCompile Include="..\..\Source\ScriptSystem.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Diffuse2D.ps">

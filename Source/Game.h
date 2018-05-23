@@ -10,6 +10,7 @@
 #include "CameraSystem.h"
 #include "AudioSystem.h"
 #include "RenderSystem.h"
+#include "ScriptSystem.h"
 
 #include <memory>
 
@@ -45,8 +46,9 @@ namespace game
 		component::serialization::SceneLoader			m_sceneLoader;
 		input::InputSystem								m_inputSystem;
 		rendering::CameraSystem							m_cameraSystem;
-		audio::AudioSystem								m_audioSystem;
+		audio::AudioSystem								m_audioSystem; 
 		rendering::RenderSystem							m_renderSystem;
+		script::ScriptSystem							m_scriptSystem;
 		rendering::Window&								m_windowData;
 	};
 }

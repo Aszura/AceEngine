@@ -1,0 +1,7 @@
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\bin\Debug\AceEngineScript.exe.config
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\bin\Debug\AceEngineScript.exe
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\bin\Debug\AceEngineScript.pdb
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\obj\Debug\AceEngineScript.csproj.CoreCompileInputs.cache
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\obj\Debug\AceEngineScript.exe
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\obj\Debug\AceEngineScript.pdb
+C:\Users\Simon\Documents\Visual Studio 2013\Projects\AceEngine\Script\AceEngineScript\obj\Debug\AceEngineScript.csprojResolveAssemblyReference.cache

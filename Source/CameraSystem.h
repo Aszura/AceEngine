@@ -11,13 +11,13 @@ namespace rendering
 	class CameraSystem
 	{
 	public:
-		CameraSystem(component::EntityWorld& entityWorld);
+		explicit CameraSystem(component::EntityWorld& entityWorld);
 		~CameraSystem() = default;
 
 		void start();
 		void update(float deltaTime);
 	private:
-		component::EntityWorld& m_entityWorld;
+		component::EntityWorld& m_entityWorld; 
 		glm::ivec2 m_movementAxis;
 	};
 }

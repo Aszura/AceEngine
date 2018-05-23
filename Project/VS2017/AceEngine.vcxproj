@@ -71,15 +71,17 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\mono\lib\;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLibDll|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\mono\lib\;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
@@ -87,7 +89,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\mono\lib\;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;*.vs;*.ps;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
@@ -95,7 +97,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Binaries\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)\..\..\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\..\Libraries\VS2015;$(SolutionDir)\..\..\Libraries\VS2015\mono\lib\;$(SolutionDir)\..\..\Libraries\VS2015\$(Configuration);$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <ExtensionsToDeleteOnClean>*.dll;*.vs;*.ps;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
@@ -113,13 +115,19 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;mono-2.0-sgen.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.pdb" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\lib" "$(TargetDir)mono\lib\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\etc" "$(TargetDir)mono\etc\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
@@ -139,13 +147,19 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;mono-2.0-sgen.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.pdb" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\lib" "$(TargetDir)mono\lib\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\etc" "$(TargetDir)mono\etc\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
@@ -169,13 +183,19 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;mono-2.0-sgen.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.pdb" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\lib" "$(TargetDir)mono\lib\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\etc" "$(TargetDir)mono\etc\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
@@ -199,13 +219,19 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;glew32.lib;OpenGL32.lib;mono-2.0-sgen.lib;PhysX3CHECKED_x86.lib;PhysX3CommonCHECKED_x86.lib;PhysX3CookingCHECKED_x86.lib;PhysX3CharacterKinematicCHECKED_x86.lib;PhysX3ExtensionsCHECKED.lib;sfml-audio.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)..\..\Source\*.vs" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Source\*.ps" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\*.pdb" "$(TargetDir)" /D /K /Y
 XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\$(Configuration)\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.dll" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\bin\*.pdb" "$(TargetDir)" /D /K /Y
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\lib" "$(TargetDir)mono\lib\" /D /K /Y /S
+XCOPY "$(SolutionDir)..\..\Libraries\VS2015\mono\etc" "$(TargetDir)mono\etc\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Scenes" "$(TargetDir)Scenes\" /D /K /Y /S
 XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
       <Message>Copy .dlls and shader files to target dir.</Message>
@@ -217,6 +243,8 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClInclude Include="..\..\Source\KeyMap.h" />
     <ClInclude Include="..\..\Source\MusicComponent.h" />
     <ClInclude Include="..\..\Source\SceneLoader.h" />
+    <ClInclude Include="..\..\Source\ScriptComponent.h" />
+    <ClInclude Include="..\..\Source\ScriptSystem.h" />
     <ClInclude Include="..\..\Source\Sound.h" />
     <ClInclude Include="..\..\Source\AudioSystem.h" />
     <ClInclude Include="..\..\Source\CameraComponent.h" />
@@ -251,6 +279,8 @@ XCOPY "$(SolutionDir)..\..\Media" "$(TargetDir)Media\" /D /K /Y /S</Command>
     <ClCompile Include="..\..\Source\AceEngine.cpp" />
     <ClCompile Include="..\..\Source\RenderSystem.cpp" />
     <ClCompile Include="..\..\Source\SceneLoader.cpp" />
+    <ClCompile Include="..\..\Source\ScriptSystem.cpp" />
+    <ClCompile Include="..\..\Source\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Diffuse2D.ps" />

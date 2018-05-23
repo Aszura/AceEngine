@@ -1,9 +1,7 @@
 <Components>
-	<PlayerComponent entityId="1" />
 	<CameraComponent entityId="1" />
-	<CharacterControllerComponent entityId="1" />
 	<TransformComponent entityId="1" />
-	<MusicComponent entityId="3" isPlaying="1" filePath="Media/Audio/wind.ogg" />
-	<TransformComponent entityId="6" />
-	<SpriteComponent entityId="6" shader="Diffuse2D" materialTexture="Media/Textures/tree1.png" />
+	<MusicComponent entityId="2" isPlaying="1" filePath="Media/Audio/wind.ogg" />
+	<TransformComponent entityId="3" />
+	<SpriteComponent entityId="3" shader="Diffuse2D" materialTexture="Media/Textures/tree1.png" />
 </Components>

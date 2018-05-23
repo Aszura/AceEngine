@@ -14,3 +14,8 @@ namespace component
 		glm::quat	rotation = glm::quat();
 	};
 }
+
+extern "C" __declspec(dllexport) float getPositionX(uint64_t objPtr);
+extern "C" __declspec(dllexport) float getPositionY(uint64_t objPtr);
+extern "C" __declspec(dllexport) float getPositionZ(uint64_t objPtr);
+extern "C" __declspec(dllexport) void setPosition(uint64_t objPtr, float* value);

@@ -61,7 +61,7 @@ namespace rendering
 		initGlew();
 		m_windowData.resize(m_screenSize.x, m_screenSize.y);
 
-		// Disable VSync
+		// Enable/Disable VSync
 		wglSwapIntervalEXT(1);
 
 		{
@@ -385,34 +385,10 @@ namespace rendering
 		assert(cameraTransform);  
 
 		m_staticBuffer.projectionMatrix = glm::ortho(cameraTransform->position.x, static_cast<float>(m_screenSize.x), cameraTransform->position.y, static_cast<float>(m_screenSize.y), cameraComp->zNear, cameraComp->zFar);
-
-		//-----------------------
-		 
 		m_staticBuffer.viewMatrix = glm::lookAt(cameraTransform->position, cameraTransform->position + cameraComp->direction, cameraComp->up);
 
-		//-----------------------
-
-
-		//// Compute inverse rotation q
-		//glm::quat rotation = cameraTransform.rotation;
-		//rotation.x *= -1.0f;
-		//rotation.y *= -1.0f;
-		//rotation.z *= -1.0f;
-		//mStaticBuffer.viewMatrix = glm::mat4_cast(rotation);
-
-		//// Translate by inverse eyePosition.
-		//glm::vec3 v = -cameraTransform.position;
-		//glm::mat4 m = mStaticBuffer.viewMatrix;
-		//mStaticBuffer.viewMatrix[3] = (m[0] * v[0]) + (m[1] * v[1]) + (m[2] * v[2]) + m[3];
-
-		//glm::vec3 position = cameraTransform.position;
-		//glm::vec3 forward = glm::normalize(rotation  * glm::vec3(0.0f, 0.0f, 1.0f));
-		//glm::vec3 right = glm::normalize(rotation * glm::vec3(1.0f, 0.0f, 0.0f));
-		//glm::vec3 up = glm::cross(right, forward);
-		//mStaticBuffer.viewMatrix = glm::lookAt(position, position + forward, up);
-
 		glBindBuffer(GL_UNIFORM_BUFFER, m_staticUbo);
-		glBufferData(GL_UNIFORM_BUFFER, sizeof(StaticBuffer), &m_staticBuffer, GL_DYNAMIC_DRAW);
+		glBufferData(GL_UNIFORM_BUFFER, sizeof(StaticBuffer), &m_staticBuffer, GL_DYNAMIC_DRAW); 
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}
 

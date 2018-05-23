@@ -5,24 +5,53 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AceEngine", "AceEngine.vcxproj", "{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AceEngineScript", "..\..\Script\AceEngineScript\AceEngineScript.csproj", "{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|Win32 = Debug|Win32
+		DebugLibDll|Any CPU = DebugLibDll|Any CPU
 		DebugLibDll|Win32 = DebugLibDll|Win32
+		Release|Any CPU = Release|Any CPU
 		Release|Win32 = Release|Win32
+		ReleaseLibDll|Any CPU = ReleaseLibDll|Any CPU
 		ReleaseLibDll|Win32 = ReleaseLibDll|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Debug|Win32.Build.0 = Debug|Win32
+		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.DebugLibDll|Any CPU.ActiveCfg = DebugLibDll|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.DebugLibDll|Win32.ActiveCfg = DebugLibDll|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.DebugLibDll|Win32.Build.0 = DebugLibDll|Win32
+		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Release|Any CPU.ActiveCfg = Release|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Release|Win32.ActiveCfg = Release|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.Release|Win32.Build.0 = Release|Win32
+		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.ReleaseLibDll|Any CPU.ActiveCfg = ReleaseLibDll|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.ReleaseLibDll|Win32.ActiveCfg = ReleaseLibDll|Win32
 		{2A8B17B1-E92C-4D2B-B0C6-A6498B35E3E0}.ReleaseLibDll|Win32.Build.0 = ReleaseLibDll|Win32
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Debug|Win32.Build.0 = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.DebugLibDll|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.DebugLibDll|Any CPU.Build.0 = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.DebugLibDll|Win32.ActiveCfg = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.DebugLibDll|Win32.Build.0 = Debug|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Release|Win32.ActiveCfg = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.Release|Win32.Build.0 = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.ReleaseLibDll|Any CPU.ActiveCfg = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.ReleaseLibDll|Any CPU.Build.0 = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.ReleaseLibDll|Win32.ActiveCfg = Release|Any CPU
+		{1F43C423-BC3E-42DA-A2B7-8EE4DE4D216A}.ReleaseLibDll|Win32.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47244C0F-B176-47B9-8A2D-F5ED7A506E55}
 	EndGlobalSection
 EndGlobal

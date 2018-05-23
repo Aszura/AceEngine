@@ -26,6 +26,7 @@ namespace game
 		, m_cameraSystem(m_entityWorld)
 		, m_audioSystem(m_entityWorld)
 		, m_renderSystem(m_entityWorld, m_textureLoader, m_shaderLoader, windowData)
+		, m_scriptSystem(m_entityWorld)
 	{
 	}
 
@@ -36,6 +37,7 @@ namespace game
 
 		m_renderSystem.start(800, 600);
 		m_audioSystem.start();
+		m_scriptSystem.start();
 	}
 
 
@@ -51,6 +53,7 @@ namespace game
 		m_cameraSystem.update(deltaTime);
 		m_audioSystem.update(deltaTime);
 		m_renderSystem.update(deltaTime);
+		m_scriptSystem.update(deltaTime);
 	}
 
 
