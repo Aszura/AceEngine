@@ -1,7 +1,7 @@
 # Ace Engine
-The Ace Engine is the latest game engine project from 08/2015.
+The Ace Engine is my personal game engine project. I like working on it in my freetime whenever I don't develop any specific prototypes. Take a look at the Ace Engine 2D branch for the latest changes.
 
-It features a component-based 3D game engine that can be easily extended. Levels are loaded via XML to offer the possibility to implement an independent editor. Currently the renderer is based on the OpenGL API. The components are stored in highly-optimized packed arrays.
+It features a component-based 2D/3D game engine that can be easily extended. Levels are loaded via XML to offer the possibility to implement an independent editor. Currently the renderer is based on the OpenGL API. The components are stored in highly-optimized packed arrays.
 
 # Features
 * Extensible component-based game engine
